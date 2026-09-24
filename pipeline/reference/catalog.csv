@@ -1,40 +1,45 @@
 name,country,tab,frequency,unit,transform,description
 us_gdp,US,output,Q,bn chained USD SAAR,qoq_annualized,Real GDP
-us_industrial_production,US,output,M,index,yoy,Industrial production index
-us_recession_flag,US,output,M,flag,none,NBER recession indicator
-ca_gdp_quarterly,CA,output,Q,chained CAD SAAR,qoq_annualized,Real GDP (expenditure)
-ca_gdp_monthly,CA,output,M,chained CAD SAAR,yoy,Real GDP all industries
-ca_industrial_production,CA,output,M,chained CAD SAAR,yoy,Industrial production (GDP basis)
+ca_gdp_quarterly,CA,output,Q,chained 2017 CAD SAAR,qoq_annualized,Real GDP (expenditure)
+us_industrial_production,US,output,M,index,yoy,Industrial production
+ca_industrial_production,CA,output,M,chained 2017 CAD,yoy,Industrial production (GDP basis)
+ca_gdp_monthly,CA,output,M,chained 2017 CAD,yoy,Real GDP all industries (monthly)
+us_recession_flag,US,input,M,flag,none,NBER recession indicator
 us_unemployment,US,labour,M,%,none,Unemployment rate
-us_nonfarm_payrolls,US,labour,M,thousands,mom_change,Nonfarm payrolls
+ca_unemployment,CA,labour,M,%,none,Unemployment rate (LFS)
 us_participation_rate,US,labour,M,%,none,Participation rate
+ca_participation,CA,labour,M,%,none,Participation rate (LFS)
+us_nonfarm_payrolls,US,labour,M,thousands,mom_change,Nonfarm payrolls
+ca_employment,CA,labour,M,thousands,mom_change,Employment (LFS)
 us_avg_hourly_earnings,US,labour,M,USD,yoy,Average hourly earnings
-ca_unemployment,CA,labour,M,%,none,LFS unemployment rate
-ca_participation,CA,labour,M,%,none,LFS participation rate
-ca_employment,CA,labour,M,thousands,mom_change,LFS employment
 us_cpi,US,prices,M,index,yoy,Headline CPI
 us_core_cpi,US,prices,M,index,yoy,Core CPI ex food & energy
 ca_cpi_all_items,CA,prices,M,index,yoy,Headline CPI
-cpi_trim,CA,prices,M,% yoy,none,CPI-trim (BoC core)
+cpi_trim,CA,prices,M,% y/y,none,CPI-trim (BoC core)
 ca_ippi_total,CA,prices,M,index,yoy,Industrial product price index
 overnight_rate,CA,money,D,%,none,BoC target overnight rate
-prime_rate,CA,money,W,%,none,Prime rate - StatCan v80691311
-yield_2yr,CA,money,D,%,none,GoC 2-year benchmark yield
-yield_5yr,CA,money,D,%,none,GoC 5-year benchmark yield
-yield_10yr,CA,money,D,%,none,GoC 10-year benchmark yield
-m1_gross,CA,money,M,CAD,yoy,M1+ (gross) - StatCan v37258
-m2pp_gross,CA,money,M,CAD,yoy,M2++ (gross) - StatCan v41552790
 us_fed_funds,US,money,M,%,none,Effective fed funds rate
+prime_rate,CA,money,W,%,none,Prime rate
+ca_prime_margin,CA,money,M,pp,none,Prime minus overnight rate
+yield_2yr,CA,money,D,%,none,GoC 2-year yield
+yield_5yr,CA,money,D,%,none,GoC 5-year yield
+yield_10yr,CA,money,D,%,none,GoC 10-year yield
 us_yield_2yr,US,money,M,%,none,Treasury 2-year yield
 us_yield_10yr,US,money,M,%,none,Treasury 10-year yield
+ca_spread_10_2,CA,money,M,pp,none,10y minus 2y spread
+us_spread_10_2,US,money,M,pp,none,10y minus 2y spread
+m1_gross,CA,money,M,CAD,yoy,M1+ (gross)
+m2pp_gross,CA,money,M,CAD,yoy,M2++ (gross)
 us_m2,US,money,M,bn USD,yoy,M2 money stock
 canada_oecd_cli,CA,sentiment,M,index,none,OECD composite leading indicator
 us_consumer_sentiment,US,sentiment,M,index,none,UMich consumer sentiment
-ca_retail_sales,CA,sentiment,M,CAD,yoy,Retail trade sales
-cad_usd,CA,trade,D,USD per CAD,none,CAD/USD exchange rate
-wti_crude,US,trade,D,USD/bbl,none,WTI crude oil spot
-us_trade_balance,US,trade,M,mn USD,none,Goods & services trade balance
-ca_exports,CA,trade,M,CAD,yoy,Merchandise exports (BOP)
-ca_imports,CA,trade,M,CAD,yoy,Merchandise imports (BOP)
+ca_retail_sales,CA,sentiment,M,CAD,yoy,Retail sales
+cad_usd,CA,input,D,USD per CAD,none,BoC CAD/USD (from 2017)
+usdcad_fred,CA,input,D,CAD per USD,none,FRED USD/CAD (backfill)
+cad_usd_combined,CA,trade,M,USD per CAD,none,CAD/USD exchange rate
+wti_crude,US,trade,D,USD/bbl,none,WTI crude oil
+ca_exports,CA,trade,M,CAD,yoy,Merchandise exports
+ca_imports,CA,trade,M,CAD,yoy,Merchandise imports
 ca_exports_to_us,CA,trade,M,CAD,yoy,Merchandise exports to U.S.
-usdcad_fred,CA,trade,D,CAD per USD,invert,FRED FX (backfill pre-2017)
+ca_trade_balance,CA,trade,M,CAD,none,Merchandise trade balance
+us_trade_balance,US,trade,M,mn USD,none,Goods & services trade balance
