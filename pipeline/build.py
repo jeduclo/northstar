@@ -2,6 +2,7 @@
 
 Usage (from repo root):  python -m pipeline.build
 """
+import sys
 import duckdb
 from pipeline.sources.common import RAW_DIR, ROOT
 
@@ -85,6 +86,8 @@ def main():
     ok = checks(con)
     con.close()
     print(f"\n{'BUILD OK' if ok else 'BUILD HAS ISSUES'} -> {DB_PATH}")
+    if not ok:
+        sys.exit(1)
 
 
 if __name__ == "__main__":

@@ -33,13 +33,13 @@ m2pp_gross,CA,money,M,CAD,yoy,M2++ (gross)
 us_m2,US,money,M,bn USD,yoy,M2 money stock
 canada_oecd_cli,CA,sentiment,M,index,none,OECD composite leading indicator
 us_consumer_sentiment,US,sentiment,M,index,none,UMich consumer sentiment
-ca_retail_sales,CA,sentiment,M,CAD,yoy,Retail sales
+ca_retail_sales,CA,sentiment,M,thousand CAD,yoy,Retail sales
 cad_usd,CA,input,D,USD per CAD,none,BoC CAD/USD (from 2017)
 usdcad_fred,CA,input,D,CAD per USD,none,FRED USD/CAD (backfill)
 cad_usd_combined,CA,trade,M,USD per CAD,none,CAD/USD exchange rate
 wti_crude,US,trade,D,USD/bbl,none,WTI crude oil
-ca_exports,CA,trade,M,CAD,yoy,Merchandise exports
-ca_imports,CA,trade,M,CAD,yoy,Merchandise imports
-ca_exports_to_us,CA,trade,M,CAD,yoy,Merchandise exports to U.S.
-ca_trade_balance,CA,trade,M,CAD,none,Merchandise trade balance
+ca_exports,CA,trade,M,mn CAD,yoy,Merchandise exports
+ca_imports,CA,trade,M,mn CAD,yoy,Merchandise imports
+ca_exports_to_us,CA,trade,M,mn CAD,yoy,Merchandise exports to U.S.
+ca_trade_balance,CA,trade,M,mn CAD,none,Merchandise trade balance
 us_trade_balance,US,trade,M,mn USD,none,Goods & services trade balance
