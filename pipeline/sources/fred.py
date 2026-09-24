@@ -4,11 +4,30 @@ import pandas as pd
 from .common import HTTP, START, save, summarize, failed
 
 FRED_SERIES = {  # id: (name, max acceptable lag in days)
+    # Output & activity
     "GDPC1": ("us_gdp", 200),
+    "INDPRO": ("us_industrial_production", 75),
+    "USREC": ("us_recession_flag", 120),
+    # Labour
     "UNRATE": ("us_unemployment", 75),
+    "PAYEMS": ("us_nonfarm_payrolls", 75),
+    "CIVPART": ("us_participation_rate", 75),
+    "CES0500000003": ("us_avg_hourly_earnings", 75),
+    # Prices
     "CPIAUCSL": ("us_cpi", 75),
+    "CPILFESL": ("us_core_cpi", 75),
+    # Money & rates
     "FEDFUNDS": ("us_fed_funds", 75),
+    "GS2": ("us_yield_2yr", 75),
+    "GS10": ("us_yield_10yr", 75),
+    "M2SL": ("us_m2", 75),
+    # Sentiment & leading
+    "UMCSENT": ("us_consumer_sentiment", 75),
     "CANLOLITOAASTSAM": ("canada_oecd_cli", 120),  # VERIFY: may be discontinued
+    # Trade & commodities
+    "BOPGSTB": ("us_trade_balance", 110),
+    "DCOILWTICO": ("wti_crude", 10),
+    "DEXCAUS": ("usdcad_fred", 10),  # CAD per USD; backfills BoC FX before 2017
 }
 
 

@@ -6,9 +6,14 @@ from .common import save, summarize, failed
 MARKET_START = "2006-01-01"  # aligned with macro start; ETFs begin when listed
 
 CANADA = {"XIU.TO": "Benchmark", "XFN.TO": "Financials", "XEG.TO": "Energy",
-          "XIT.TO": "Tech", "XST.TO": "Staples", "XUT.TO": "Utilities"}
+          "XIT.TO": "Tech", "XST.TO": "Staples", "XUT.TO": "Utilities",
+          "XMA.TO": "Materials"}
 US = {"SPY": "Benchmark", "XLK": "Tech", "XLE": "Energy", "XLF": "Financials",
-      "XLV": "HealthCare", "XLI": "Industrials", "XLU": "Utilities"}
+      "XLV": "HealthCare", "XLI": "Industrials", "XLU": "Utilities",
+      "XLP": "Staples", "XLB": "Materials"}
+
+# Sectors present in both markets -> used for cross-border rotation in Tab 7
+PAIRED_SECTORS = sorted(set(CANADA.values()) & set(US.values()))
 
 
 def fetch(tickers: dict, market: str) -> pd.DataFrame:

@@ -6,16 +6,13 @@ BASE = "https://www.bankofcanada.ca/valet"
 
 BOC_SERIES = {
     "V39079": "overnight_rate",
-    "V122495": "prime_rate",
     "FXCADUSD": "cad_usd",
-    "V122531": "yield_2yr",
-    "V122538": "yield_5yr",
+    "BD.CDN.2YR.DQ.YLD": "yield_2yr",
+    "BD.CDN.5YR.DQ.YLD": "yield_5yr",
     "BD.CDN.10YR.DQ.YLD": "yield_10yr",
-    "V41690914": "cpi_trim",
-    "V37255": "m1_gross",   # VERIFY: label printed in audit
-    "V37269": "m2_gross",   # VERIFY: label printed in audit
+    "CPI_TRIM": "cpi_trim",
 }
-MONTHLY = {"cpi_trim", "m1_gross", "m2_gross"}
+MONTHLY = {"cpi_trim"}
 
 
 def fetch_series(code: str, name: str) -> pd.DataFrame:
