@@ -6,10 +6,23 @@ boc,yield_5yr,5177,2006-01-03,2026-09-22,2,ok,"BD.CDN.5YR.DQ.YLD: Benchmark bond
 boc,yield_10yr,5178,2006-01-03,2026-09-22,2,ok,"BD.CDN.10YR.DQ.YLD: Benchmark bond yield, 10-year | The yield on the Government of Canada 10-year benchmark bond. This series represents the prevailing market interest ra"
 boc,cpi_trim,248,2006-01-01,2026-08-01,54,ok,CPI_TRIM: CPI-trim | The monthly value of the trim component of the Consumer Price Index (CPI). This measure excludes CPI components whose rates of change in a 
 fred,us_gdp,82,2006-01-01,2026-04-01,176,ok,GDPC1
+fred,us_industrial_production,248,2006-01-01,2026-08-01,54,ok,INDPRO
+fred,us_recession_flag,248,2006-01-01,2026-08-01,54,ok,USREC
 fred,us_unemployment,247,2006-01-01,2026-08-01,54,ok,UNRATE
+fred,us_nonfarm_payrolls,248,2006-01-01,2026-08-01,54,ok,PAYEMS
+fred,us_participation_rate,247,2006-01-01,2026-08-01,54,ok,CIVPART
+fred,us_avg_hourly_earnings,246,2006-03-01,2026-08-01,54,ok,CES0500000003
 fred,us_cpi,247,2006-01-01,2026-08-01,54,ok,CPIAUCSL
+fred,us_core_cpi,247,2006-01-01,2026-08-01,54,ok,CPILFESL
 fred,us_fed_funds,248,2006-01-01,2026-08-01,54,ok,FEDFUNDS
+fred,us_yield_2yr,248,2006-01-01,2026-08-01,54,ok,GS2
+fred,us_yield_10yr,248,2006-01-01,2026-08-01,54,ok,GS10
+fred,us_m2,248,2006-01-01,2026-08-01,54,ok,M2SL
+fred,us_consumer_sentiment,247,2006-01-01,2026-07-01,85,ok,UMCSENT
 fred,canada_oecd_cli,248,2006-01-01,2026-08-01,54,ok,CANLOLITOAASTSAM
+fred,us_trade_balance,247,2006-01-01,2026-07-01,85,ok,BOPGSTB
+fred,wti_crude,5117,2006-01-03,2026-09-22,2,ok,DCOILWTICO
+fred,usdcad_fred,5190,2006-01-03,2026-09-18,6,ok,DEXCAUS
 statcan,cpi_monthly,1152913,1914-01-01,2026-08-01,54,ok,18100004 dims={'Products and product groups': 359}
 statcan,labour_force_survey,5466528,1976-01-01,2026-08-01,54,ok,"14100287 dims={'Labour force characteristics': 9, 'Gender': 3, 'Age group': 9, 'Statistics': 4, 'Data type': 3}"
 statcan,ippi,11555,1956-01-01,2026-08-01,54,ok,18100265 dims={'North American Product Classification System (NAPCS)': 24}
@@ -17,5 +30,17 @@ statcan,retail_trade,80172,2017-01-01,2026-07-01,85,ok,"20100056 dims={'North Am
 statcan,m1_gross,247,2006-01-01,2026-07-01,85,ok,v37258: Canada;M1+ (gross)
 statcan,m2pp_gross,247,2006-01-01,2026-07-01,85,ok,"v41552790: Canada;M2++ (gross) (M2+ (gross), Canada Savings Bonds, non-money market mutual funds)"
 statcan,prime_rate,1081,2006-01-04,2026-09-16,8,ok,v80691311: Canada;Chartered bank administered interest rates - Prime rate
-yfinance,sectors_CA,28174,2006-01-03,2026-09-24,0,ok,"first dates={'XEG.TO': datetime.date(2006, 1, 3), 'XFN.TO': datetime.date(2006, 1, 3), 'XIT.TO': datetime.date(2006, 1, 3), 'XIU.TO': datetime.date(2006, 1, 3), 'XST.TO': datetime.date(2012, 1, 24), 'XUT.TO': datetime.date(2012, 1, 24)} missing=none"
-yfinance,sectors_US,36494,2006-01-03,2026-09-24,0,ok,"first dates={'SPY': datetime.date(2006, 1, 3), 'XLE': datetime.date(2006, 1, 3), 'XLF': datetime.date(2006, 1, 3), 'XLI': datetime.date(2006, 1, 3), 'XLK': datetime.date(2006, 1, 3), 'XLU': datetime.date(2006, 1, 3), 'XLV': datetime.date(2006, 1, 3)} missing=none"
+statcan_series,ca_cpi_all_items,1352,1914-01-01,2026-08-01,54,ok,18100004 v41690973 [2002=100]
+statcan_series,ca_unemployment,608,1976-01-01,2026-08-01,54,ok,14100287 v2062815 [Percent]
+statcan_series,ca_participation,608,1976-01-01,2026-08-01,54,ok,14100287 v2062816 [Percent]
+statcan_series,ca_employment,608,1976-01-01,2026-08-01,54,ok,14100287 v2062811 [Persons in thousands]
+statcan_series,ca_ippi_total,848,1956-01-01,2026-08-01,54,ok,"18100265 v1230995983 [Index, 202001=100]"
+statcan_series,ca_retail_sales,115,2017-01-01,2026-07-01,85,ok,20100056 v1446859483 [Dollars]
+statcan_series,ca_gdp_monthly,354,1997-01-01,2026-06-01,115,ok,36100434 v65201210 [Dollars]
+statcan_series,ca_industrial_production,354,1997-01-01,2026-06-01,115,ok,36100434 v65201219 [Dollars]
+statcan_series,ca_gdp_quarterly,262,1961-01-01,2026-04-01,176,ok,36100104 v62305752 [Dollars]
+statcan_series,ca_exports,355,1997-01-01,2026-07-01,85,ok,12100011 v87008955 [Dollars]
+statcan_series,ca_imports,355,1997-01-01,2026-07-01,85,ok,12100011 v87008839 [Dollars]
+statcan_series,ca_exports_to_us,355,1997-01-01,2026-07-01,85,ok,12100011 v87008956 [Dollars]
+yfinance,sectors_CA,33377,2006-01-03,2026-09-24,0,ok,"first dates={'XEG.TO': datetime.date(2006, 1, 3), 'XFN.TO': datetime.date(2006, 1, 3), 'XIT.TO': datetime.date(2006, 1, 3), 'XIU.TO': datetime.date(2006, 1, 3), 'XMA.TO': datetime.date(2006, 1, 3), 'XST.TO': datetime.date(2012, 1, 24), 'XUT.TO': datetime.date(2012, 1, 24)} missing=none"
+yfinance,sectors_US,46920,2006-01-03,2026-09-24,0,ok,"first dates={'SPY': datetime.date(2006, 1, 3), 'XLB': datetime.date(2006, 1, 3), 'XLE': datetime.date(2006, 1, 3), 'XLF': datetime.date(2006, 1, 3), 'XLI': datetime.date(2006, 1, 3), 'XLK': datetime.date(2006, 1, 3), 'XLP': datetime.date(2006, 1, 3), 'XLU': datetime.date(2006, 1, 3), 'XLV': datetime.date(2006, 1, 3)} missing=none"

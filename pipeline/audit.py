@@ -3,7 +3,7 @@
 Usage (from repo root):  python -m pipeline.audit
 """
 import pandas as pd
-from pipeline.sources import boc, fred, statcan, markets
+from pipeline.sources import boc, fred, statcan, statcan_series, markets
 from pipeline.sources.common import RAW_DIR
 
 pd.set_option("display.width", 200)
@@ -27,7 +27,7 @@ def ippi_check():
 
 def main():
     report = []
-    for mod in (boc, fred, statcan, markets):
+    for mod in (boc, fred, statcan, statcan_series, markets):
         print(f"Running {mod.__name__.split('.')[-1]} ...")
         report += mod.run()
 

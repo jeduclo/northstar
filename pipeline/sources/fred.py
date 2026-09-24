@@ -22,7 +22,7 @@ FRED_SERIES = {  # id: (name, max acceptable lag in days)
     "GS10": ("us_yield_10yr", 75),
     "M2SL": ("us_m2", 75),
     # Sentiment & leading
-    "UMCSENT": ("us_consumer_sentiment", 75),
+    "UMCSENT": ("us_consumer_sentiment", 100),
     "CANLOLITOAASTSAM": ("canada_oecd_cli", 120),  # VERIFY: may be discontinued
     # Trade & commodities
     "BOPGSTB": ("us_trade_balance", 110),
