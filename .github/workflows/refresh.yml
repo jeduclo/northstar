@@ -3,7 +3,7 @@ name: Daily data refresh
 on:
   schedule:
     - cron: "0 14 * * 1-5"   # 10:00 ET weekdays (after 8:30 ET StatCan/BLS releases)
-  workflow_dispatch:           # "Run workflow" button for manual refreshes
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -12,14 +12,17 @@ concurrency:
   group: data-refresh
   cancel-in-progress: false
 
+env:
+  PYTHONUNBUFFERED: "1"        # live logs, so a slow step is visible
+
 jobs:
   refresh:
-    runs-on: ubuntu-latest
-    timeout-minutes: 45
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.11"
           cache: pip
@@ -28,13 +31,16 @@ jobs:
       - name: Install
         run: pip install -r pipeline/requirements.txt
 
-      - name: Ingest (all sources)
-        run: python -m pipeline.audit
+      - name: Ingest
+        timeout-minutes: 10
+        run: python -m pipeline.ingest
 
       - name: Build warehouse
+        timeout-minutes: 5
         run: python -m pipeline.build
 
       - name: Export web data
+        timeout-minutes: 5
         run: python -m pipeline.export
 
       - name: Commit refreshed data (push triggers Vercel deploy)

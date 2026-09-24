@@ -17,7 +17,7 @@ PAIRED_SECTORS = sorted(set(CANADA.values()) & set(US.values()))
 
 
 def fetch(tickers: dict, market: str) -> pd.DataFrame:
-    px = yf.download(list(tickers), start=MARKET_START, progress=False,
+    px = yf.download(list(tickers), start=MARKET_START, progress=False, timeout=60,
                      auto_adjust=True)["Close"]
     df = px.reset_index().melt(id_vars="Date", var_name="ticker",
                                value_name="close").dropna()
