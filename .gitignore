@@ -7,3 +7,4 @@ data/*.duckdb
 node_modules/
 .next/
 .vercel/
+data/audit_report.csv
