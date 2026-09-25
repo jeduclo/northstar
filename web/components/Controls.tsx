@@ -48,16 +48,16 @@ function Segmented<T extends string>({ label, value, options, onChange }: {
   );
 }
 
-export function ControlBar() {
+export function ControlBar({ showRange = true }: { showRange?: boolean }) {
   const { country, range, setCountry, setRange } = useControls();
   return (
     <div className="flex flex-wrap items-center gap-3">
       <Segmented label="Country" value={country} onChange={setCountry} options={[
         { value: "both", label: "Both" }, { value: "CA", label: "Canada" }, { value: "US", label: "U.S." },
       ]} />
-      <Segmented label="Date range" value={range} onChange={setRange} options={[
+      {showRange && <Segmented label="Date range" value={range} onChange={setRange} options={[
         { value: "5Y", label: "5 years" }, { value: "10Y", label: "10 years" }, { value: "MAX", label: "Since 2006" },
-      ]} />
+      ]} />}
     </div>
   );
 }

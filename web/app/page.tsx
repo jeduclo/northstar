@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getTab, manifest } from "@/lib/data";
 import { TAB_SPECS } from "@/lib/tabs";
+import { rotation, rotationAnswer } from "@/lib/rotation";
 
 export default function Overview() {
   return (
@@ -30,6 +31,15 @@ export default function Overview() {
             </li>
           );
         })}
+        <li>
+          <Link href="/rotation" className="group grid gap-1 py-5 sm:grid-cols-[14rem_1fr] sm:gap-6">
+            <span className="font-medium group-hover:text-ca">Sector rotation</span>
+            <span>
+              <span className="block font-serif text-lg">How is capital rotating across sectors in Canada and the U.S.?</span>
+              <span className="mt-1 block text-sm text-muted">{rotationAnswer(rotation)}</span>
+            </span>
+          </Link>
+        </li>
       </ul>
     </article>
   );
