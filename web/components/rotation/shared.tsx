@@ -37,13 +37,13 @@ export function HorizonPicker({ value, onChange }: { value: Horizon; onChange: (
   );
 }
 
-export function MarketKey({ markets }: { markets: ("CA" | "US")[] }) {
+export function MarketKey({ markets, suffix = " sector ETFs" }: { markets: ("CA" | "US")[]; suffix?: string }) {
   return (
     <span className="flex flex-wrap gap-x-4">
       {markets.map((m) => (
         <span key={m} className="flex items-center gap-1.5">
           <span className="h-2 w-2 rounded-full" style={{ background: MARKET_COLOR[m] }} aria-hidden />
-          {MARKET_NAME[m]} sector ETFs
+          {MARKET_NAME[m]}{suffix}
         </span>
       ))}
     </span>
