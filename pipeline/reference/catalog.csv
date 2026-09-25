@@ -97,3 +97,14 @@ bcpi_ex_energy,CA,trade,M,index,yoy,BCPI excluding energy,,
 ca_us_2y_spread,CA,trade,M,pp,none,Canada minus U.S. 2-year yield,,
 us_broad_dollar,US,trade,D,index,none,Broad trade-weighted U.S. dollar,,
 ca_exports_non_us,CA,trade,M,mn CAD,yoy,Merchandise exports to non-U.S. markets,,
+ca_unemployed_level,CA,input,M,thousands,none,Unemployed persons (LFS),,1
+ca_job_vacancies,CA,input,M,thousands,none,Job vacancies (JVWS),,1
+ca_capacity_util,CA,output,Q,%,none,Industrial capacity utilization,,1
+ca_openings_per_unemployed,CA,labour,M,ratio,none,Job vacancies per unemployed person,,1
+ca_ei_claims,CA,labour,M,persons,none,EI initial and renewal claims (monthly),,1
+ca_core_cpi_sa,CA,input,M,index,none,CPI excluding food and energy (SA),,1
+ca_core_cpi_3m,CA,prices,M,index,ann_3m,CPI excluding food & energy,ca_core_cpi_sa,1
+ca_housing_starts,CA,sentiment,M,thousands SAAR,none,Housing starts (CMHC),,1
+us_housing_starts,US,sentiment,M,thousands SAAR,none,Housing starts,,
+ca_mfg_new_orders,CA,sentiment,M,CAD,yoy,Manufacturing new orders,,1
+ca_consumer_infl_exp,CA,sentiment,Q,%,none,Expected inflation next 12 months (BoC CSCE),,1

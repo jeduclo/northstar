@@ -46,6 +46,7 @@ FRED_SERIES = {  # id: (name, max acceptable lag in days)
     "RSAFS": ("us_retail_sales", 75),
     "RRSFS": ("us_real_retail_sales", 75),
     "PERMIT": ("us_building_permits", 75),
+    "HOUST": ("us_housing_starts", 75),
     "NEWORDER": ("us_core_capex_orders", 75),
     "MICH": ("us_consumer_infl_exp", 100),
     # Trade & commodities

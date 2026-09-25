@@ -59,6 +59,8 @@ SELECT month,
     max(value) FILTER (WHERE name = 'us_unemployment')        AS us_u,
     max(value) FILTER (WHERE name = 'us_job_openings')        AS openings,
     max(value) FILTER (WHERE name = 'us_unemployed_level')    AS unemployed,
+    max(value) FILTER (WHERE name = 'ca_job_vacancies')       AS ca_vac,
+    max(value) FILTER (WHERE name = 'ca_unemployed_level')    AS ca_unemployed,
     max(value) FILTER (WHERE name = 'overnight_rate')         AS onr,
     max(value) FILTER (WHERE name = 'cpi_trim')               AS trim,
     max(value) FILTER (WHERE name = 'us_fed_funds')           AS ff,
@@ -89,6 +91,7 @@ FROM w2 a JOIN w2 b ON b.month = a.month - INTERVAL 12 MONTH;
 INSERT INTO clean.monthly
 SELECT month, name, value FROM (
     SELECT w2.month, 'us_openings_per_unemployed' AS name, openings / unemployed AS value FROM w2
+    UNION ALL SELECT month, 'ca_openings_per_unemployed', ca_vac / ca_unemployed FROM w2
     UNION ALL SELECT w2.month, 'ca_real_policy_rate', onr - trim FROM w2
     UNION ALL SELECT w2.month, 'us_real_policy_rate', ff - core_pce_yoy FROM w2 JOIN w2y USING (month)
     UNION ALL SELECT month, 'ca_real_wage_growth', ca_wage_yoy - ca_cpi_yoy FROM w2y

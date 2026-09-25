@@ -18,8 +18,9 @@ BOC_SERIES = {
     "M.BCPI": "bcpi_total",          # Bank of Canada commodity price index, monthly
     "M.ENER": "bcpi_energy",
     "M.BCNE": "bcpi_ex_energy",
+    "CES_C1_SHORT_TERM": "ca_consumer_infl_exp",   # CSCE, quarterly
 }
-MONTHLY = {"cpi_trim", "cpi_median", "cpi_common", "bcpi_total", "bcpi_energy", "bcpi_ex_energy"}
+MONTHLY = {"ca_consumer_infl_exp", "cpi_trim", "cpi_median", "cpi_common", "bcpi_total", "bcpi_energy", "bcpi_ex_energy"}
 
 
 def fetch_series(code: str, name: str) -> pd.DataFrame:
@@ -53,7 +54,7 @@ def run():
             df = fetch_series(code, name)
             frames.append(df)
             report.append(summarize(df, "boc", name,
-                                    75 if name in MONTHLY else 7,
+                                    (150 if name == "ca_consumer_infl_exp" else 75) if name in MONTHLY else 7,
                                     note=f"{code}: {series_label(code)}"))
         except Exception as e:
             report.append(failed("boc", name, e))
