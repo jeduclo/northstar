@@ -19,8 +19,19 @@ BOC_SERIES = {
     "M.ENER": "bcpi_energy",
     "M.BCNE": "bcpi_ex_energy",
     "CES_C1_SHORT_TERM": "ca_consumer_infl_exp",   # CSCE, quarterly
+    # Chartered-bank lending (OSFI A4 return), month-end, $ millions
+    "V122667724": "ca_mtg_adv_insured",      # funds advanced, insured mortgages
+    "V122667730": "ca_mtg_adv_uninsured",    # funds advanced, uninsured mortgages
+    "V122667725": "ca_mtg_adv_ins_var",      # ... of which variable rate
+    "V122667731": "ca_mtg_adv_unins_var",
+    "V122667736": "ca_mtg_bal_insured",      # outstanding balances
+    "V122667742": "ca_mtg_bal_uninsured",
+    "V122667758": "ca_consumer_credit",
+    "V122667770": "ca_business_credit",
 }
-MONTHLY = {"ca_consumer_infl_exp", "cpi_trim", "cpi_median", "cpi_common", "bcpi_total", "bcpi_energy", "bcpi_ex_energy"}
+LAGS = {"ca_consumer_infl_exp": 220}         # quarterly survey, published ~3.5 months after quarter start
+LAGS.update({n: 100 for n in BOC_SERIES.values() if n.startswith(("ca_mtg_", "ca_consumer_credit", "ca_business_credit"))})
+MONTHLY = {"cpi_trim", "cpi_median", "cpi_common", "bcpi_total", "bcpi_energy", "bcpi_ex_energy"}
 
 
 def fetch_series(code: str, name: str) -> pd.DataFrame:
@@ -54,7 +65,7 @@ def run():
             df = fetch_series(code, name)
             frames.append(df)
             report.append(summarize(df, "boc", name,
-                                    (220 if name == "ca_consumer_infl_exp" else 75) if name in MONTHLY else 7,
+                                    LAGS.get(name, 75 if name in MONTHLY else 7),
                                     note=f"{code}: {series_label(code)}"))
         except Exception as e:
             report.append(failed("boc", name, e))

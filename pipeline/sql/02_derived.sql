@@ -131,3 +131,26 @@ FROM clean.quarterly g
 JOIN pop p ON p.quarter = g.quarter AND p.n = 3
     AND p.name = CASE g.name WHEN 'ca_gdp_quarterly' THEN 'ca_pop_15plus' ELSE 'us_pop_16plus' END
 WHERE g.name IN ('ca_gdp_quarterly', 'us_gdp');
+
+-- Chartered-bank lending (BoC A4): total mortgage balances, variable-rate share of new lending
+INSERT INTO clean.monthly
+WITH a AS (
+    SELECT month,
+        max(value) FILTER (WHERE name = 'ca_mtg_bal_insured')    AS bal_ins,
+        max(value) FILTER (WHERE name = 'ca_mtg_bal_uninsured')  AS bal_unins,
+        max(value) FILTER (WHERE name = 'ca_mtg_adv_insured')    AS adv_ins,
+        max(value) FILTER (WHERE name = 'ca_mtg_adv_uninsured')  AS adv_unins,
+        max(value) FILTER (WHERE name = 'ca_mtg_adv_ins_var')    AS var_ins,
+        max(value) FILTER (WHERE name = 'ca_mtg_adv_unins_var')  AS var_unins
+    FROM clean.monthly GROUP BY month
+),
+s AS (   -- 3-month totals smooth out seasonality in new lending
+    SELECT month, bal_ins + bal_unins AS bal,
+        sum(var_ins + var_unins) OVER w AS var3, sum(adv_ins + adv_unins) OVER w AS adv3,
+        count(adv_ins + adv_unins) OVER w AS n
+    FROM a WHERE adv_ins IS NOT NULL
+    WINDOW w AS (ORDER BY month ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)
+)
+SELECT month, 'ca_mortgage_credit', bal FROM s WHERE bal IS NOT NULL
+UNION ALL
+SELECT month, 'ca_variable_mortgage_share', 100 * var3 / adv3 FROM s WHERE n = 3 AND var3 IS NOT NULL;

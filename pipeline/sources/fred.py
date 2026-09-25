@@ -39,6 +39,9 @@ FRED_SERIES = {  # id: (name, max acceptable lag in days)
     "NFCI": ("us_nfci", 14),
     "MORTGAGE30US": ("us_mortgage_30y", 14),
     "DRTSCILM": ("us_sloos_ci", 200),
+    "BUSLOANS": ("us_ci_loans", 75),
+    "REALLN": ("us_re_loans", 75),
+    "CONSUMER": ("us_consumer_loans", 75),
     # Sentiment & leading
     "UMCSENT": ("us_consumer_sentiment", 100),
     "CANLOLITOAASTSAM": ("canada_oecd_cli", 120),

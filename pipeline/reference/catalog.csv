@@ -108,3 +108,16 @@ ca_housing_starts,CA,sentiment,M,thousands SAAR,none,Housing starts (CMHC),,1
 us_housing_starts,US,sentiment,M,thousands SAAR,none,Housing starts,,
 ca_mfg_new_orders,CA,sentiment,M,CAD,yoy,Manufacturing new orders,,1
 ca_consumer_infl_exp,CA,sentiment,Q,%,none,Expected inflation next 12 months (BoC CSCE),,1
+ca_mtg_adv_insured,CA,input,M,mn CAD,none,Mortgage funds advanced: insured,,
+ca_mtg_adv_uninsured,CA,input,M,mn CAD,none,Mortgage funds advanced: uninsured,,
+ca_mtg_adv_ins_var,CA,input,M,mn CAD,none,Mortgage funds advanced: insured variable,,
+ca_mtg_adv_unins_var,CA,input,M,mn CAD,none,Mortgage funds advanced: uninsured variable,,
+ca_mtg_bal_insured,CA,input,M,mn CAD,none,Mortgage balances: insured,,
+ca_mtg_bal_uninsured,CA,input,M,mn CAD,none,Mortgage balances: uninsured,,
+ca_mortgage_credit,CA,money,M,mn CAD,yoy,Residential mortgage balances (banks),,
+ca_consumer_credit,CA,money,M,mn CAD,yoy,Consumer credit balances (banks),,
+ca_business_credit,CA,money,M,mn CAD,yoy,Business loan balances (banks),,
+ca_variable_mortgage_share,CA,money,M,%,none,Variable-rate share of new mortgage lending,,
+us_re_loans,US,money,M,bn USD,yoy,Real estate loans (banks),,
+us_consumer_loans,US,money,M,bn USD,yoy,Consumer loans (banks),,
+us_ci_loans,US,money,M,bn USD,yoy,Commercial & industrial loans (banks),,
