@@ -1,55 +1,36 @@
-import manifest from "@/public/data/manifest.json";
+import Link from "next/link";
+import { getTab, manifest } from "@/lib/data";
+import { TAB_SPECS } from "@/lib/tabs";
 
-type TabInfo = { series: number; latest: string };
-
-const TAB_LABELS: Record<string, string> = {
-  output: "National Output & Growth",
-  labour: "Labour Markets & Employment",
-  prices: "Prices, Inflation & Costs",
-  money: "Money, Credit & Central Banks",
-  sentiment: "Sentiment & Leading Indicators",
-  trade: "Trade, FX & External Sector",
-};
-
-export default function Home() {
-  const tabs = manifest.tabs as Record<string, TabInfo>;
-  const refreshed = new Date(manifest.generated_at).toLocaleString("en-CA", {
-    timeZone: "America/Toronto",
-    dateStyle: "medium",
-    timeStyle: "short",
-  });
-
+export default function Overview() {
   return (
-    <main className="mx-auto max-w-3xl px-6 py-12">
-      <h1 className="text-3xl font-bold tracking-tight">NorthStar Macro &amp; Sector Intelligence</h1>
-      <p className="mt-2 text-sm opacity-70">Pipeline status · data refreshed {refreshed} ET</p>
+    <article>
+      <h1 className="max-w-3xl font-serif text-3xl leading-tight font-semibold sm:text-4xl">
+        Where are Canada and the U.S. in the business cycle?
+      </h1>
+      <p className="mt-3 max-w-2xl text-lg text-muted">
+        Each section answers one question with live data from the Bank of Canada, Statistics Canada and the St. Louis Fed.
+      </p>
 
-      <div className="mt-8 overflow-x-auto rounded-lg border border-current/15">
-        <table className="w-full text-left text-sm">
-          <thead className="bg-current/5">
-            <tr>
-              <th className="px-4 py-2">Tab</th>
-              <th className="px-4 py-2 text-right">Series</th>
-              <th className="px-4 py-2 text-right">Latest data</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Object.entries(tabs).map(([key, t]) => (
-              <tr key={key} className="border-t border-current/10">
-                <td className="px-4 py-2">{TAB_LABELS[key] ?? key}</td>
-                <td className="px-4 py-2 text-right tabular-nums">{t.series}</td>
-                <td className="px-4 py-2 text-right tabular-nums">{t.latest}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      {manifest.sources && "datasets" in manifest.sources && (
-        <p className="mt-4 text-sm opacity-70">
-          Sources: {manifest.sources.ok}/{manifest.sources.datasets} datasets healthy
-        </p>
-      )}
-    </main>
+      <ul className="mt-10 divide-y divide-line border-y border-line">
+        {TAB_SPECS.map((spec) => {
+          const data = getTab(spec.slug);
+          const answer = data ? spec.answer((n) => data.series.find((s) => s.name === n)) : "";
+          const info = manifest.tabs[spec.slug];
+          return (
+            <li key={spec.slug}>
+              <Link href={`/${spec.slug}`} className="group grid gap-1 py-5 sm:grid-cols-[14rem_1fr] sm:gap-6">
+                <span className="font-medium group-hover:text-ca">{spec.label}</span>
+                <span>
+                  <span className="block font-serif text-lg">{spec.question}</span>
+                  <span className="mt-1 block text-sm text-muted">{answer}</span>
+                  {info && <span className="mt-1 block text-xs text-muted">{info.series} series, latest data {info.latest}</span>}
+                </span>
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+    </article>
   );
 }
