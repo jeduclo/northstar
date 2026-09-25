@@ -19,7 +19,7 @@ q AS (
 SELECT * FROM m UNION ALL SELECT * FROM q;
 
 CREATE OR REPLACE TABLE mart.tab_series AS
-SELECT c.tab, c.country, i.name, c.description, c.frequency,
+SELECT c.tab, c.country, c.name, c.description, c.frequency,
     CASE c.transform
         WHEN 'yoy' THEN '% y/y'
         WHEN 'qoq_annualized' THEN '% q/q ann.'
@@ -32,7 +32,7 @@ SELECT c.tab, c.country, i.name, c.description, c.frequency,
         WHEN 'mom_change' THEN i.mom_chg
         ELSE i.value END AS value,
     i.value AS level
-FROM mart.indicators i JOIN ref.catalog c USING (name)
+FROM mart.indicators i JOIN ref.catalog c ON i.name = coalesce(c.source_name, c.name)
 WHERE c.tab <> 'input' AND i.date >= DATE '2006-01-01';
 DELETE FROM mart.tab_series WHERE value IS NULL;
 

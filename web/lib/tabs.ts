@@ -12,6 +12,8 @@ export const TAB_SPECS: TabSpec[] = [
     charts: [
       { title: "Real GDP growth, quarter over quarter (annualized)", series: ["ca_gdp_quarterly", "us_gdp"], kind: "bar", zeroLine: true },
       { title: "Industrial production, year over year", series: ["ca_industrial_production", "us_industrial_production"], kind: "line", zeroLine: true },
+      { title: "Real GDP, year over year", series: ["ca_gdp_yoy", "us_gdp_yoy"], kind: "line", zeroLine: true,
+        note: "Smoother than annualized quarterly rates: growth over the same quarter a year earlier." },
       { title: "Canada monthly real GDP, year over year", series: ["ca_gdp_monthly"], kind: "line", zeroLine: true,
         note: "Monthly GDP by industry gives an earlier read than the quarterly accounts." },
     ],
@@ -29,7 +31,7 @@ export const TAB_SPECS: TabSpec[] = [
     kpis: ["ca_unemployment", "us_unemployment", "ca_employment", "us_nonfarm_payrolls", "us_avg_hourly_earnings"],
     charts: [
       { title: "Unemployment rate", series: ["ca_unemployment", "us_unemployment"], kind: "line" },
-      { title: "Participation rate", series: ["ca_participation", "us_participation_rate"], kind: "line" },
+      { title: "Participation rate", series: ["ca_participation", "us_participation_rate"], kind: "line", yDomain: [50, "auto"] },
       { title: "Monthly employment change (thousands)", series: ["ca_employment", "us_nonfarm_payrolls"], kind: "bar", zeroLine: true,
         note: "Canada: Labour Force Survey. U.S.: nonfarm payrolls. Pandemic months dominate the full history." },
       { title: "U.S. average hourly earnings, year over year", series: ["us_avg_hourly_earnings"], kind: "line" },
@@ -53,6 +55,8 @@ export const TAB_SPECS: TabSpec[] = [
         note: "Canada: CPI-trim, the Bank of Canada's preferred core measure. U.S.: CPI excluding food and energy." },
       { title: "Producer vs consumer prices in Canada, year over year", series: ["ca_ippi_total", "ca_cpi_all_items"], kind: "line", zeroLine: true,
         note: "Industrial product prices (IPPI) tend to lead consumer prices when input costs move." },
+      { title: "Oil prices vs Canadian producer prices, year over year", series: ["wti_crude_yoy", "ca_ippi_total"], kind: "line", zeroLine: true,
+        note: "Energy is a large share of the IPPI, so swings in crude oil feed through to producer prices quickly." },
     ],
     answer: (get) => {
       const ca = get("ca_cpi_all_items"), us = get("us_cpi"), trim = get("cpi_trim");

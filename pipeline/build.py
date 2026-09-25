@@ -47,7 +47,7 @@ def checks(con):
     print("\n=== CHECKS ===")
     missing = con.execute("""
         SELECT name FROM ref.catalog
-        WHERE name NOT IN (SELECT name FROM clean.monthly UNION SELECT name FROM clean.quarterly)
+        WHERE coalesce(source_name, name) NOT IN (SELECT name FROM clean.monthly UNION SELECT name FROM clean.quarterly)
     """).fetchall()
     dupes = con.execute("""
         SELECT count(*) FROM (SELECT tab, name, date FROM mart.tab_series

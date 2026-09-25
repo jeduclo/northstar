@@ -92,12 +92,12 @@ export default function SeriesChart({ spec, series, recessions }: {
                   x2={Math.min(toTime(r.end_date), end)} fill="var(--shade)" ifOverflow="hidden" />
               ))}
               {spec.band && (
-                <ReferenceArea y1={spec.band[0]} y2={spec.band[1]} fill="var(--band)" ifOverflow="hidden" />
+                <ReferenceArea y1={spec.band[0]} y2={spec.band[1]} fill="var(--band)" ifOverflow="extendDomain" />
               )}
               {spec.zeroLine && <ReferenceLine y={0} stroke="var(--muted)" strokeWidth={1} />}
               <XAxis dataKey="t" type="number" scale="time" domain={[start, end]} ticks={ticks} tickFormatter={fmtTick}
                 stroke="var(--muted)" fontSize={11} tickLine={false} />
-              <YAxis stroke="var(--muted)" fontSize={11} tickLine={false} axisLine={false} width={48} />
+              <YAxis domain={spec.yDomain ?? (spec.kind === "bar" ? undefined : ["auto", "auto"])} stroke="var(--muted)" fontSize={11} tickLine={false} axisLine={false} width={48} />
               <Tooltip
                 labelFormatter={(t) => fmtDay(Number(t))}
                 formatter={(v, name) => [
