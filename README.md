@@ -4,8 +4,8 @@ A live platform tracking the business cycle and sector rotation in Canada and th
 data pipelines, a DuckDB warehouse, a seven-section dashboard, probabilistic forecasts, causal rate-shock
 estimates, and a natural-language assistant that answers questions with SQL.
 
-**Live site:** https://northstar-ecru-omega.vercel.app  
-**Methodology:** https://northstar-ecru-omega.vercel.app/methodology
+**Live site:** https://www.macrointelligence.ca  
+**Methodology:** https://www.macrointelligence.ca/methodology
 
 ## What it answers
 
