@@ -8,9 +8,9 @@ export const metadata = { title: "Methodology | NorthStar" };
 const FREQ = { D: "Daily", W: "Weekly", M: "Monthly", Q: "Quarterly" } as const;
 
 const SOURCES = [
-  { name: "Bank of Canada Valet API", what: "Policy rate, benchmark bond yields, CAD/USD, CPI-trim", freq: "Daily / monthly", lag: "1–2 days" },
-  { name: "Statistics Canada (WDS vector API)", what: "CPI, Labour Force Survey, IPPI, retail trade, GDP, merchandise trade, M1+/M2++, prime rate", freq: "Weekly / monthly / quarterly", lag: "3–8 weeks" },
-  { name: "FRED, St. Louis Fed (official API)", what: "U.S. GDP, jobs, CPI, rates, M2, sentiment, trade, WTI, OECD leading indicators", freq: "Daily / monthly / quarterly", lag: "1 day to 3 months" },
+  { name: "Bank of Canada Valet API", what: "Policy rate, benchmark and Real Return Bond yields, CAD/USD, CPI-trim/median/common, commodity price index (BCPI)", freq: "Daily / monthly", lag: "1–2 days" },
+  { name: "Statistics Canada (WDS vector API)", what: "CPI, Labour Force Survey (incl. wages), IPPI, retail trade, GDP, merchandise trade, M1+/M2++, prime and 5-year mortgage rates", freq: "Weekly / monthly / quarterly", lag: "3–8 weeks" },
+  { name: "FRED, St. Louis Fed (official API)", what: "U.S. GDP, jobs, JOLTS, claims, CPI, PCE, breakevens, rates, credit spreads, NFCI, loan-officer survey, housing, orders, sentiment, trade, broad dollar, WTI, OECD leading indicators", freq: "Daily / monthly / quarterly", lag: "1 day to 3 months" },
   { name: "Yahoo Finance (yfinance)", what: "Canadian iShares and U.S. Select Sector SPDR ETF prices", freq: "Daily", lag: "1 day" },
 ];
 
@@ -65,6 +65,8 @@ export default function Methodology() {
         <li><strong>Policy rate before April 2009.</strong> Filled from the Bank of Canada&apos;s published rate decisions, entered by hand.</li>
         <li><strong>Recessions.</strong> U.S. dates follow the NBER (FRED series USREC). Canadian dates follow the C.D. Howe Institute Business Cycle Council and are entered by hand.</li>
         <li><strong>Relative strength.</strong> A sector ETF&apos;s return minus its market benchmark&apos;s return over the same window (S&amp;P/TSX 60 via XIU for Canada, S&amp;P 500 via SPY for the U.S.), in percentage points.</li>
+        <li><strong>Derived indicators.</strong> Real policy rates subtract core inflation (CPI-trim; core PCE) from the policy rate. Real wage growth subtracts headline CPI inflation from wage growth. GDP per working-age person divides real GDP by the quarterly average of the LFS population aged 15+ (Canada) or the civilian population aged 16+ (U.S.). The Sahm rule is the 3-month average unemployment rate minus its lowest 3-month average over the previous 12 months. Canada&apos;s breakeven inflation is the long-term benchmark yield minus the Real Return Bond yield.</li>
+        <li><strong>3-month annualized rates.</strong> ((this month ÷ three months earlier)⁴ − 1) × 100.</li>
         <li><strong>CAD–oil correlation.</strong> Rolling correlation of monthly percentage changes, computed only over complete 12- or 36-month windows.</li>
       </ul>
 

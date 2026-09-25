@@ -27,6 +27,9 @@ VECTORS = {  # name: (vector id, frequency, max lag days, source table)
     "m1_gross":                 (37258,      "M", 100, "10-10-0116"),
     "m2pp_gross":               (41552790,   "M", 100, "10-10-0116"),
     "prime_rate":               (80691311,   "W", 14,  "10-10-0145"),
+    "ca_mortgage_5y":           (80691335,   "W", 14,  "10-10-0145"),
+    "ca_avg_hourly_wages":      (2132579,    "M", 75,  "14-10-0063"),
+    "ca_pop_15plus":            (2062809,    "M", 75,  "14-10-0287"),   # optional: check label in audit
 }
 
 

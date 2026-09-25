@@ -6,14 +6,16 @@ WITH m AS (
     SELECT month AS date, name, value,
         100 * (value / lag(value, 12) OVER w - 1) AS yoy_pct,
         value - lag(value, 1) OVER w                AS mom_chg,
-        NULL::DOUBLE                                AS qoq_ann
+        NULL::DOUBLE                                AS qoq_ann,
+        100 * (pow(value / lag(value, 3) OVER w, 4) - 1) AS ann_3m
     FROM clean.monthly WINDOW w AS (PARTITION BY name ORDER BY month)
 ),
 q AS (
     SELECT quarter AS date, name, value,
         100 * (value / lag(value, 4) OVER w - 1)            AS yoy_pct,
         value - lag(value, 1) OVER w                         AS mom_chg,
-        100 * (pow(value / lag(value, 1) OVER w, 4) - 1)     AS qoq_ann
+        100 * (pow(value / lag(value, 1) OVER w, 4) - 1)     AS qoq_ann,
+        NULL::DOUBLE                                         AS ann_3m
     FROM clean.quarterly WINDOW w AS (PARTITION BY name ORDER BY quarter)
 )
 SELECT * FROM m UNION ALL SELECT * FROM q;
@@ -23,12 +25,14 @@ SELECT c.tab, c.country, c.name, c.description, c.frequency,
     CASE c.transform
         WHEN 'yoy' THEN '% y/y'
         WHEN 'qoq_annualized' THEN '% q/q ann.'
+        WHEN 'ann_3m' THEN '% 3m ann.'
         WHEN 'mom_change' THEN c.unit || ' m/m chg'
         ELSE c.unit END AS display_unit,
     i.date,
     CASE c.transform
         WHEN 'yoy' THEN i.yoy_pct
         WHEN 'qoq_annualized' THEN i.qoq_ann
+        WHEN 'ann_3m' THEN i.ann_3m
         WHEN 'mom_change' THEN i.mom_chg
         ELSE i.value END AS value,
     i.value AS level

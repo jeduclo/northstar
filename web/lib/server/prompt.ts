@@ -15,7 +15,7 @@ TABLES (DuckDB, read-only)
   Exclude is_partial_month rows unless asked about the current month.
 - recessions(country, start_date DATE, end_date DATE, source)
 - fx_oil(month DATE, cad, wti, corr_12m, corr_36m)  CAD/USD and WTI monthly with rolling correlations of monthly % changes.
-- catalog(name, country, tab, frequency, unit, transform, description, source_name)
+- catalog(name, country, tab, frequency, unit, transform, description, source_name, optional)
 
 DATA DICTIONARY
 ${dictionary}

@@ -40,7 +40,17 @@ def summarize(df, source, dataset, max_lag_days, date_col="date", note=""):
             "note": note}
 
 
+def _optional_names() -> set:
+    """Catalog rows flagged optional=1: a failure there is reported but does not block the refresh."""
+    cat = pd.read_csv(ROOT / "pipeline" / "reference" / "catalog.csv", dtype=str).fillna("")
+    return set(cat.loc[cat.get("optional", "") == "1", "name"])
+
+
+OPTIONAL = _optional_names()
+
+
 def failed(source, dataset, err):
     return {"source": source, "dataset": dataset, "rows": 0, "start": None,
-            "end": None, "lag_days": None, "status": "FAILED",
+            "end": None, "lag_days": None,
+            "status": "MISSING_OPTIONAL" if dataset in OPTIONAL else "FAILED",
             "note": str(err)[:200]}

@@ -45,10 +45,14 @@ def run_sql(con):
 
 def checks(con):
     print("\n=== CHECKS ===")
-    missing = con.execute("""
-        SELECT name FROM ref.catalog
+    absent = con.execute("""
+        SELECT name, coalesce(CAST(optional AS VARCHAR), '') = '1' FROM ref.catalog
         WHERE coalesce(source_name, name) NOT IN (SELECT name FROM clean.monthly UNION SELECT name FROM clean.quarterly)
     """).fetchall()
+    missing = [a for a in absent if not a[1]]
+    skipped = [a[0] for a in absent if a[1]]
+    if skipped:
+        print(f"Optional series with no data (charts hide them): {skipped}")
     dupes = con.execute("""
         SELECT count(*) FROM (SELECT tab, name, date FROM mart.tab_series
                               GROUP BY ALL HAVING count(*) > 1)

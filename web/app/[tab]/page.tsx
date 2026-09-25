@@ -36,9 +36,12 @@ export default async function TabPage({ params }: PageProps<"/[tab]">) {
       <div className="mt-6"><KpiStrip series={pick(spec.kpis)} generatedAt={manifest.generated_at} /></div>
 
       <div className="mt-8 grid gap-5 lg:grid-cols-2">
-        {spec.charts.map((c) => (
-          <SeriesChart key={c.title} spec={c} series={pick(c.series)} recessions={recessions} />
-        ))}
+        {spec.charts
+          .map((c) => ({ c, series: pick(c.series) }))
+          .filter(({ series }) => series.length > 0)   // optional series may be absent after a refresh
+          .map(({ c, series }) => (
+            <SeriesChart key={c.title} spec={c} series={series} recessions={recessions} />
+          ))}
       </div>
     </article>
   );

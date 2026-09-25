@@ -10,9 +10,16 @@ BOC_SERIES = {
     "BD.CDN.2YR.DQ.YLD": "yield_2yr",
     "BD.CDN.5YR.DQ.YLD": "yield_5yr",
     "BD.CDN.10YR.DQ.YLD": "yield_10yr",
+    "BD.CDN.LONG.DQ.YLD": "ca_long_bond",
+    "BD.CDN.RRB.DQ.YLD": "ca_rrb_yield",
     "CPI_TRIM": "cpi_trim",
+    "CPI_MEDIAN": "cpi_median",
+    "CPI_COMMON": "cpi_common",
+    "M.BCPI": "bcpi_total",          # Bank of Canada commodity price index, monthly
+    "M.ENER": "bcpi_energy",
+    "M.BCNE": "bcpi_ex_energy",
 }
-MONTHLY = {"cpi_trim"}
+MONTHLY = {"cpi_trim", "cpi_median", "cpi_common", "bcpi_total", "bcpi_energy", "bcpi_ex_energy"}
 
 
 def fetch_series(code: str, name: str) -> pd.DataFrame:

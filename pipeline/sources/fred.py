@@ -12,28 +12,47 @@ FRED_SERIES = {  # id: (name, max acceptable lag in days)
     "GDPC1": ("us_gdp", 200),
     "INDPRO": ("us_industrial_production", 75),
     "USREC": ("us_recession_flag", 120),
+    "TCU": ("us_capacity_util", 75),
+    "RECPROUSM156N": ("us_recession_prob", 130),
+    "CNP16OV": ("us_pop_16plus", 75),
     # Labour
     "UNRATE": ("us_unemployment", 75),
     "PAYEMS": ("us_nonfarm_payrolls", 75),
     "CIVPART": ("us_participation_rate", 75),
     "CES0500000003": ("us_avg_hourly_earnings", 75),
+    "UNEMPLOY": ("us_unemployed_level", 75),
+    "JTSJOL": ("us_job_openings", 100),
+    "JTSQUR": ("us_quits_rate", 100),
+    "ICSA": ("us_initial_claims", 14),
     # Prices
     "CPIAUCSL": ("us_cpi", 75),
     "CPILFESL": ("us_core_cpi", 75),
+    "PCEPILFE": ("us_core_pce", 90),
+    "T10YIE": ("us_breakeven_10y", 10),
+    "T5YIFR": ("us_5y5y", 10),
     # Money & rates
     "FEDFUNDS": ("us_fed_funds", 75),
     "GS2": ("us_yield_2yr", 75),
     "GS10": ("us_yield_10yr", 75),
     "M2SL": ("us_m2", 75),
+    "BAA10Y": ("us_baa_spread", 10),
+    "NFCI": ("us_nfci", 14),
+    "MORTGAGE30US": ("us_mortgage_30y", 14),
+    "DRTSCILM": ("us_sloos_ci", 200),
     # Sentiment & leading
     "UMCSENT": ("us_consumer_sentiment", 100),
     "CANLOLITOAASTSAM": ("canada_oecd_cli", 120),
     "USALOLITOAASTSAM": ("us_oecd_cli", 120),
     "RSAFS": ("us_retail_sales", 75),
+    "RRSFS": ("us_real_retail_sales", 75),
+    "PERMIT": ("us_building_permits", 75),
+    "NEWORDER": ("us_core_capex_orders", 75),
+    "MICH": ("us_consumer_infl_exp", 100),
     # Trade & commodities
     "BOPGSTB": ("us_trade_balance", 110),
     "DCOILWTICO": ("wti_crude", 10),
     "DEXCAUS": ("usdcad_fred", 10),  # CAD per USD; backfills BoC FX before 2017
+    "DTWEXBGS": ("us_broad_dollar", 14),
 }
 
 
