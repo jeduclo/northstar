@@ -43,7 +43,7 @@ export default function Overview() {
         </li>
         <li>
           <Link href="/outlook" className="group grid gap-1 py-5 sm:grid-cols-[14rem_1fr] sm:gap-6">
-            <span className="font-medium group-hover:text-ca">Outlook &amp; scenarios</span>
+            <span className="font-medium group-hover:text-ca">Forecast &amp; scenarios</span>
             <span>
               <span className="block font-serif text-lg">What comes next, and how would a rate shock ripple through sectors?</span>
               <span className="mt-1 block text-sm text-muted">{outlookAnswer()}</span>

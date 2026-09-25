@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { IBM_Plex_Sans, Source_Serif_4 } from "next/font/google";
 import { ControlsProvider } from "@/components/Controls";
 import Nav from "@/components/Nav";
+import StaleNotice from "@/components/StaleNotice";
 import manifest from "@/public/data/manifest.json";
 import { fmtRefreshed } from "@/lib/format";
 import "./globals.css";
@@ -38,10 +39,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             </div>
             <Nav />
           </header>
+          <StaleNotice generatedAt={manifest.generated_at} />
           <main className="mx-auto max-w-6xl px-5 py-8">{children}</main>
-          <footer className="mx-auto max-w-6xl px-5 pb-10 text-xs text-muted">
-            Sources: Bank of Canada Valet, Statistics Canada, FRED (St. Louis Fed), Yahoo Finance.
-            Shaded areas mark recessions (NBER for the U.S., C.D. Howe for Canada).
+          <footer className="mx-auto flex max-w-6xl flex-wrap justify-between gap-x-6 gap-y-2 border-t border-line px-5 py-6 text-xs text-muted">
+            <p>
+              Sources: Bank of Canada Valet, Statistics Canada, FRED (St. Louis Fed), Yahoo Finance.
+              Shaded areas mark recessions (NBER for the U.S., C.D. Howe for Canada). Not investment advice.
+            </p>
+            <p>
+              <a href="/methodology" className="underline hover:text-ink">Methodology</a>
+            </p>
           </footer>
         </ControlsProvider>
       </body>

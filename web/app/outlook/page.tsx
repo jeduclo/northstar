@@ -2,7 +2,7 @@ import OutlookView from "@/components/outlook/OutlookView";
 import { causal, forecasts, outlookAnswer, radarScores } from "@/lib/outlook";
 import { fmtRefreshed } from "@/lib/format";
 
-export const metadata = { title: "Outlook & scenarios | NorthStar" };
+export const metadata = { title: "Forecast & scenarios | NorthStar" };
 
 export default function OutlookPage() {
   return (

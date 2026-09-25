@@ -6,9 +6,9 @@ import { TAB_SPECS } from "@/lib/tabs";
 
 export default function Nav() {
   const path = usePathname();
-  const links = [{ href: "/", label: "Overview" }, ...TAB_SPECS.map((t) => ({ href: `/${t.slug}`, label: t.label })), { href: "/rotation", label: "Sector rotation" }, { href: "/outlook", label: "Outlook & scenarios" }, { href: "/ask", label: "Ask the data" }];
+  const links = [...TAB_SPECS.map((t) => ({ href: `/${t.slug}`, label: t.label })), { href: "/rotation", label: "Sector rotation" }, { href: "/outlook", label: "Forecast & scenarios" }, { href: "/ask", label: "Ask the data" }];
   return (
-    <nav aria-label="Dashboard sections" className="mx-auto max-w-6xl overflow-x-auto px-5">
+    <nav aria-label="Dashboard sections" className="mx-auto max-w-6xl overflow-x-auto px-5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
       <ul className="flex gap-6 whitespace-nowrap text-sm">
         {links.map((l) => {
           const active = l.href === "/" ? path === "/" : path.startsWith(l.href);

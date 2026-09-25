@@ -6,7 +6,7 @@ const growth = (v: number) => (v >= 0 ? `grew ${v.toFixed(1)}%` : `contracted ${
 export const TAB_SPECS: TabSpec[] = [
   {
     slug: "output",
-    label: "Output & growth",
+    label: "Output",
     question: "Are the Canadian and U.S. economies expanding or entering contraction?",
     kpis: ["ca_gdp_quarterly", "us_gdp", "ca_gdp_monthly", "ca_industrial_production", "us_industrial_production"],
     charts: [
@@ -26,7 +26,7 @@ export const TAB_SPECS: TabSpec[] = [
   },
   {
     slug: "labour",
-    label: "Labour markets",
+    label: "Labour",
     question: "Is labour utilization tightening or softening, and how are wage pressures evolving?",
     kpis: ["ca_unemployment", "us_unemployment", "ca_employment", "us_nonfarm_payrolls", "us_avg_hourly_earnings"],
     charts: [
@@ -44,7 +44,7 @@ export const TAB_SPECS: TabSpec[] = [
   },
   {
     slug: "prices",
-    label: "Prices & inflation",
+    label: "Prices",
     question: "Where are cost-push pressures relative to consumer inflation, and are central banks hitting their targets?",
     kpis: ["ca_cpi_all_items", "cpi_trim", "us_cpi", "us_core_cpi", "ca_ippi_total"],
     charts: [
@@ -67,7 +67,7 @@ export const TAB_SPECS: TabSpec[] = [
   },
   {
     slug: "money",
-    label: "Money & central banks",
+    label: "Central banks",
     question: "What is the monetary policy stance, and what is the yield curve signalling about credit conditions?",
     kpis: ["overnight_rate", "us_fed_funds", "ca_spread_10_2", "us_spread_10_2", "prime_rate"],
     charts: [
@@ -86,7 +86,7 @@ export const TAB_SPECS: TabSpec[] = [
   },
   {
     slug: "sentiment",
-    label: "Sentiment & leading",
+    label: "Sentiment",
     question: "Where are consumer and business conditions pointing over the next 3 to 6 months?",
     kpis: ["canada_oecd_cli", "us_oecd_cli", "us_consumer_sentiment", "ca_retail_sales", "us_retail_sales"],
     charts: [
