@@ -16,7 +16,7 @@ const Ctx = createContext<Controls | null>(null);
 
 export function ControlsProvider({ children }: { children: ReactNode }) {
   const [country, setCountry] = useState<CountryFilter>("both");
-  const [range, setRange] = useState<Range>("5Y");
+  const [range, setRange] = useState<Range>("MAX");
   return <Ctx.Provider value={{ country, range, setCountry, setRange }}>{children}</Ctx.Provider>;
 }
 
