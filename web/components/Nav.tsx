@@ -6,7 +6,7 @@ import { TAB_SPECS } from "@/lib/tabs";
 
 export default function Nav() {
   const path = usePathname();
-  const links = [{ href: "/", label: "Overview" }, ...TAB_SPECS.map((t) => ({ href: `/${t.slug}`, label: t.label })), { href: "/rotation", label: "Sector rotation" }, { href: "/outlook", label: "Outlook & scenarios" }];
+  const links = [{ href: "/", label: "Overview" }, ...TAB_SPECS.map((t) => ({ href: `/${t.slug}`, label: t.label })), { href: "/rotation", label: "Sector rotation" }, { href: "/outlook", label: "Outlook & scenarios" }, { href: "/ask", label: "Ask the data" }];
   return (
     <nav aria-label="Dashboard sections" className="mx-auto max-w-6xl overflow-x-auto px-5">
       <ul className="flex gap-6 whitespace-nowrap text-sm">
