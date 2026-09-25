@@ -8,3 +8,5 @@ node_modules/
 .next/
 .vercel/
 data/audit_report.csv
+.env*
+node_modules/
