@@ -33,6 +33,8 @@ jobs:
 
       - name: Ingest
         timeout-minutes: 10
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
         run: python -m pipeline.ingest
 
       - name: Build warehouse

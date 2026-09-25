@@ -1,7 +1,11 @@
 """FRED CSV endpoint (no key needed) -> data/raw/fred.parquet (long format)."""
 import io
+import os
 import pandas as pd
-from .common import HTTP, START, save, summarize, failed
+import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
+from .common import START, save, summarize, failed
 
 FRED_SERIES = {  # id: (name, max acceptable lag in days)
     # Output & activity
@@ -31,20 +35,39 @@ FRED_SERIES = {  # id: (name, max acceptable lag in days)
 }
 
 
+API = "https://api.stlouisfed.org/fred/series/observations"
+CSV = "https://fred.stlouisfed.org/graph/fredgraph.csv"
+API_KEY = os.getenv("FRED_API_KEY", "").strip()
+
+# Fail fast: FRED's CSV endpoint can stall from cloud IPs, so no long retry chains
+FAST = requests.Session()
+FAST.mount("https://", HTTPAdapter(max_retries=Retry(
+    total=2, backoff_factor=2, status_forcelist=[429, 500, 502, 503, 504],
+    allowed_methods=["GET"])))
+TIMEOUT = (10, 30)   # (connect, read) seconds
+
+
 def fetch_series(sid: str, name: str) -> pd.DataFrame:
-    r = HTTP.get("https://fred.stlouisfed.org/graph/fredgraph.csv",
-                 params={"id": sid}, timeout=30)
-    r.raise_for_status()
-    df = pd.read_csv(io.StringIO(r.text))
-    df.columns = ["date", "value"]
+    if API_KEY:   # official API: reliable from CI
+        r = FAST.get(API, timeout=TIMEOUT, params={
+            "series_id": sid, "api_key": API_KEY, "file_type": "json",
+            "observation_start": START})
+        r.raise_for_status()
+        df = pd.DataFrame(r.json()["observations"])[["date", "value"]]
+    else:         # no key: public CSV link (fine locally, unreliable in CI)
+        r = FAST.get(CSV, params={"id": sid}, timeout=TIMEOUT)
+        r.raise_for_status()
+        df = pd.read_csv(io.StringIO(r.text))
+        df.columns = ["date", "value"]
     df["date"] = pd.to_datetime(df["date"])
-    df["value"] = pd.to_numeric(df["value"], errors="coerce")
+    df["value"] = pd.to_numeric(df["value"], errors="coerce")   # "." -> NaN
     df = df.dropna().query("date >= @START")
     df["series_id"], df["name"] = sid, name
     return df[["date", "series_id", "name", "value"]]
 
 
 def run():
+    print(f"  FRED via {'API (key)' if API_KEY else 'public CSV (no key)'}", flush=True)
     frames, report = [], []
     for sid, (name, lag) in FRED_SERIES.items():
         try:
