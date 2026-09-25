@@ -66,7 +66,7 @@ export default function SeriesChart({ spec, series, recessions }: {
               <svg width="18" height="8" aria-hidden>
                 <line x1="0" y1="4" x2="18" y2="4" stroke={styles[i].color} strokeWidth="2.5" strokeDasharray={styles[i].dash} />
               </svg>
-              {s.country === "CA" ? "Canada" : "U.S."}: {s.description} ({s.unit})
+              {s.country === "CA" ? "Canada" : "U.S."}: {s.description} ({s.unit}){spec.right?.includes(s.name) ? ", right axis" : ""}
             </li>
           ))}
           {spec.band && (
@@ -89,15 +89,23 @@ export default function SeriesChart({ spec, series, recessions }: {
               <CartesianGrid stroke="var(--line)" strokeDasharray="2 4" vertical={false} />
               {shading.map((r) => (
                 <ReferenceArea key={`${r.country}-${r.start_date}`} x1={Math.max(toTime(r.start_date), start)}
-                  x2={Math.min(toTime(r.end_date), end)} fill="var(--shade)" ifOverflow="hidden" />
+                  x2={Math.min(toTime(r.end_date), end)} fill="var(--shade)" ifOverflow="hidden" yAxisId="left" />
               ))}
               {spec.band && (
-                <ReferenceArea y1={spec.band[0]} y2={spec.band[1]} fill="var(--band)" ifOverflow="extendDomain" />
+                <ReferenceArea y1={spec.band[0]} y2={spec.band[1]} fill="var(--band)" ifOverflow="extendDomain" yAxisId="left" />
               )}
-              {spec.zeroLine && <ReferenceLine y={0} stroke="var(--muted)" strokeWidth={1} />}
+              {spec.zeroLine && <ReferenceLine y={0} yAxisId="left" stroke="var(--muted)" strokeWidth={1} />}
+              {spec.refLine !== undefined && (
+                <ReferenceLine y={spec.refLine} yAxisId="left" stroke="var(--muted)" strokeDasharray="4 3" strokeWidth={1} />
+              )}
               <XAxis dataKey="t" type="number" scale="time" domain={[start, end]} ticks={ticks} tickFormatter={fmtTick}
                 stroke="var(--muted)" fontSize={11} tickLine={false} />
-              <YAxis domain={spec.yDomain ?? (spec.kind === "bar" ? undefined : ["auto", "auto"])} stroke="var(--muted)" fontSize={11} tickLine={false} axisLine={false} width={48} />
+              <YAxis yAxisId="left" domain={spec.yDomain ?? (spec.kind === "bar" ? undefined : ["auto", "auto"])}
+                stroke="var(--muted)" fontSize={11} tickLine={false} axisLine={false} width={48} />
+              {spec.right && (
+                <YAxis yAxisId="right" orientation="right" domain={["auto", "auto"]}
+                  stroke="var(--muted)" fontSize={11} tickLine={false} axisLine={false} width={52} />
+              )}
               <Tooltip
                 labelFormatter={(t) => fmtDay(Number(t))}
                 formatter={(v, name) => [
@@ -109,9 +117,9 @@ export default function SeriesChart({ spec, series, recessions }: {
               />
               {shown.map((s, i) =>
                 spec.kind === "bar" ? (
-                  <Bar key={s.name} dataKey={s.name} fill={styles[i].color} barSize={barSize} isAnimationActive={false} />
+                  <Bar key={s.name} yAxisId={spec.right?.includes(s.name) ? "right" : "left"} dataKey={s.name} fill={styles[i].color} barSize={barSize} isAnimationActive={false} />
                 ) : (
-                  <Line key={s.name} dataKey={s.name} type={spec.kind === "step" ? "stepAfter" : "linear"}
+                  <Line key={s.name} yAxisId={spec.right?.includes(s.name) ? "right" : "left"} dataKey={s.name} type={spec.kind === "step" ? "stepAfter" : "linear"}
                     stroke={styles[i].color} strokeDasharray={styles[i].dash} strokeWidth={2}
                     dot={false} connectNulls isAnimationActive={false} />
                 ),

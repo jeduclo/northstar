@@ -33,6 +33,8 @@ export interface ChartSpec {
   band?: [number, number]; // shaded target range, e.g. inflation 1–3%
   bandLabel?: string;
   zeroLine?: boolean;
+  refLine?: number;          // e.g. 100 = long-term trend for OECD leading indicators
+  right?: string[];          // series plotted on a second (right) y-axis
   yDomain?: [number | "auto", number | "auto"]; // default: auto-fit for lines, include 0 for bars
   note?: string;
 }

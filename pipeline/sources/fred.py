@@ -27,7 +27,9 @@ FRED_SERIES = {  # id: (name, max acceptable lag in days)
     "M2SL": ("us_m2", 75),
     # Sentiment & leading
     "UMCSENT": ("us_consumer_sentiment", 100),
-    "CANLOLITOAASTSAM": ("canada_oecd_cli", 120),  # VERIFY: may be discontinued
+    "CANLOLITOAASTSAM": ("canada_oecd_cli", 120),
+    "USALOLITOAASTSAM": ("us_oecd_cli", 120),
+    "RSAFS": ("us_retail_sales", 75),
     # Trade & commodities
     "BOPGSTB": ("us_trade_balance", 110),
     "DCOILWTICO": ("wti_crude", 10),
