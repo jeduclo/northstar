@@ -1,8 +1,8 @@
 {
- "generated_at": "2026-11-03T22:49:22.798Z",
+ "generated_at": "2026-11-04T05:49:19.656Z",
  "generated_by": "rules",
- "data_as_of": "2026-10-20T18:19:26+00:00",
- "executive_summary": "Leading indicators place Canada in the mid cycle and the U.S. in the mid cycle. Inflation: supply-driven (energy). Headline CPI is 3.1% but CPI-trim, which strips out the most extreme price moves, is 1.8% and CPI-median 1.9%. Policy: wide divergence between the Bank of Canada and the Fed. Recession risk: low near-term risk. Top risk: energy price shock.",
+ "data_as_of": "2026-11-04T05:49:11+00:00",
+ "executive_summary": "Leading indicators place Canada in the mid cycle and the U.S. in the mid cycle. Inflation: supply-driven (energy). Headline CPI is 3.1% (Sep 2026). Policy: wide divergence between the Bank of Canada and the Fed. Recession risk: low near-term risk. Top risk: energy price shock.",
  "personas": {
   "household": {
    "headline": "",
@@ -32,19 +32,19 @@
    "ticker": "XIT.TO",
    "call": "Overweight",
    "score": 2,
-   "momentum3m": 9.2,
-   "momentum6m": 17,
+   "momentum3m": 8.2,
+   "momentum6m": 8.1,
    "rationale": "Historically favoured in the mid cycle; beating its benchmark over 3 and 6 months."
   },
   {
    "market": "CA",
    "sector": "Energy",
    "ticker": "XEG.TO",
-   "call": "Market weight",
-   "score": 0,
-   "momentum3m": 16.6,
-   "momentum6m": -5.3,
-   "rationale": "Cycle-neutral in the mid cycle; mixed relative momentum."
+   "call": "Overweight",
+   "score": 1,
+   "momentum3m": 11.7,
+   "momentum6m": 7.7,
+   "rationale": "Cycle-neutral in the mid cycle; beating its benchmark over 3 and 6 months."
   },
   {
    "market": "CA",
@@ -52,29 +52,19 @@
    "ticker": "XFN.TO",
    "call": "Market weight",
    "score": 0,
-   "momentum3m": -4.7,
-   "momentum6m": 11.5,
+   "momentum3m": -3.3,
+   "momentum6m": 5.4,
    "rationale": "Cycle-neutral in the mid cycle; mixed relative momentum."
   },
   {
    "market": "CA",
    "sector": "Materials",
    "ticker": "XMA.TO",
-   "call": "Market weight",
-   "score": 0,
-   "momentum3m": 11.2,
-   "momentum6m": -10.2,
-   "rationale": "Cycle-neutral in the mid cycle; mixed relative momentum."
-  },
-  {
-   "market": "CA",
-   "sector": "Utilities",
-   "ticker": "XUT.TO",
    "call": "Underweight",
    "score": -1,
-   "momentum3m": null,
-   "momentum6m": null,
-   "rationale": "Historically lags in the mid cycle; mixed relative momentum."
+   "momentum3m": -1.5,
+   "momentum6m": -17,
+   "rationale": "Cycle-neutral in the mid cycle; trailing its benchmark over 3 and 6 months."
   },
   {
    "market": "CA",
@@ -82,8 +72,18 @@
    "ticker": "XST.TO",
    "call": "Underweight",
    "score": -2,
-   "momentum3m": -7,
-   "momentum6m": -12,
+   "momentum3m": -3.2,
+   "momentum6m": -2.4,
+   "rationale": "Historically lags in the mid cycle; trailing its benchmark over 3 and 6 months."
+  },
+  {
+   "market": "CA",
+   "sector": "Utilities",
+   "ticker": "XUT.TO",
+   "call": "Underweight",
+   "score": -2,
+   "momentum3m": -5.9,
+   "momentum6m": -5.3,
    "rationale": "Historically lags in the mid cycle; trailing its benchmark over 3 and 6 months."
   },
   {
@@ -92,28 +92,38 @@
    "ticker": "XLK",
    "call": "Overweight",
    "score": 2,
-   "momentum3m": 0.5,
-   "momentum6m": 29.8,
+   "momentum3m": 1.1,
+   "momentum6m": 7.1,
    "rationale": "Historically favoured in the mid cycle; beating its benchmark over 3 and 6 months."
   },
   {
    "market": "US",
    "sector": "Energy",
    "ticker": "XLE",
-   "call": "Market weight",
-   "score": 0,
-   "momentum3m": 14.1,
-   "momentum6m": -16.1,
-   "rationale": "Cycle-neutral in the mid cycle; mixed relative momentum."
+   "call": "Overweight",
+   "score": 1,
+   "momentum3m": 16.9,
+   "momentum6m": 13.2,
+   "rationale": "Cycle-neutral in the mid cycle; beating its benchmark over 3 and 6 months."
   },
   {
    "market": "US",
    "sector": "HealthCare",
    "ticker": "XLV",
+   "call": "Overweight",
+   "score": 1,
+   "momentum3m": 12.8,
+   "momentum6m": 22,
+   "rationale": "Cycle-neutral in the mid cycle; beating its benchmark over 3 and 6 months."
+  },
+  {
+   "market": "US",
+   "sector": "Financials",
+   "ticker": "XLF",
    "call": "Market weight",
    "score": 0,
-   "momentum3m": 4.2,
-   "momentum6m": -2,
+   "momentum3m": -1.8,
+   "momentum6m": 3.5,
    "rationale": "Cycle-neutral in the mid cycle; mixed relative momentum."
   },
   {
@@ -122,39 +132,29 @@
    "ticker": "XLI",
    "call": "Market weight",
    "score": 0,
-   "momentum3m": -12,
-   "momentum6m": -14.1,
+   "momentum3m": -8.1,
+   "momentum6m": -9.3,
    "rationale": "Historically favoured in the mid cycle; trailing its benchmark over 3 and 6 months."
-  },
-  {
-   "market": "US",
-   "sector": "Financials",
-   "ticker": "XLF",
-   "call": "Underweight",
-   "score": -1,
-   "momentum3m": -2.4,
-   "momentum6m": -8.9,
-   "rationale": "Cycle-neutral in the mid cycle; trailing its benchmark over 3 and 6 months."
   },
   {
    "market": "US",
    "sector": "Materials",
    "ticker": "XLB",
-   "call": "Underweight",
-   "score": -1,
-   "momentum3m": -6.1,
-   "momentum6m": -19.6,
-   "rationale": "Cycle-neutral in the mid cycle; trailing its benchmark over 3 and 6 months."
+   "call": "Market weight",
+   "score": 0,
+   "momentum3m": 3.6,
+   "momentum6m": -2.4,
+   "rationale": "Cycle-neutral in the mid cycle; mixed relative momentum."
   },
   {
    "market": "US",
    "sector": "Staples",
    "ticker": "XLP",
-   "call": "Underweight",
-   "score": -2,
-   "momentum3m": -4.7,
-   "momentum6m": -18.2,
-   "rationale": "Historically lags in the mid cycle; trailing its benchmark over 3 and 6 months."
+   "call": "Market weight",
+   "score": 0,
+   "momentum3m": 4.4,
+   "momentum6m": 1.8,
+   "rationale": "Historically lags in the mid cycle; beating its benchmark over 3 and 6 months."
   },
   {
    "market": "US",
@@ -162,8 +162,8 @@
    "ticker": "XLU",
    "call": "Underweight",
    "score": -2,
-   "momentum3m": -14.8,
-   "momentum6m": -30.7,
+   "momentum3m": -2.8,
+   "momentum6m": -11.7,
    "rationale": "Historically lags in the mid cycle; trailing its benchmark over 3 and 6 months."
   }
  ],
@@ -172,7 +172,7 @@
    "id": "oil-shock",
    "severity": "high",
    "title": "Energy price shock",
-   "detail": "Oil is +62% from a year ago (Oct 2026), feeding headline inflation and squeezing energy importers while lifting Canada's terms of trade."
+   "detail": "Oil is +66% from a year ago (Oct 2026), feeding headline inflation and squeezing energy importers while lifting Canada's terms of trade."
   },
   {
    "id": "real-wages",
@@ -187,10 +187,16 @@
    "detail": "Headline CPI is 4.0% in the U.S. and 3.1% in Canada, against 2% targets."
   },
   {
+   "id": "credit",
+   "severity": "medium",
+   "title": "Credit spreads widening",
+   "detail": "Corporate spreads are up +0.73 pts in three months to 3.43 points: lenders are pricing more default risk."
+  },
+  {
    "id": "sentiment",
    "severity": "low",
    "title": "U.S. consumer sentiment depressed",
-   "detail": "The University of Michigan index is 51.7 (Aug 2026), near historic lows."
+   "detail": "The University of Michigan index is 48.1 (Sep 2026), near historic lows."
   },
   {
    "id": "expectations",
