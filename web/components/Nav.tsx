@@ -2,30 +2,49 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { TAB_SPECS } from "@/lib/tabs";
+
+const LENS_LINKS = [
+  { href: "/", label: "Overview" },
+  { href: "/household", label: "Household" },
+  { href: "/investor", label: "Investor" },
+  { href: "/policy", label: "Policy" },
+  { href: "/student", label: "Student" },
+];
+
+const TOOL_LINKS = [
+  { href: "/data", label: "Indicators" },
+  { href: "/rotation", label: "Sectors" },
+  { href: "/outlook", label: "Forecasts" },
+  { href: "/ask", label: "Ask the data" },
+];
 
 export default function Nav() {
   const path = usePathname();
-  const links = [...TAB_SPECS.map((t) => ({ href: `/${t.slug}`, label: t.label })), { href: "/rotation", label: "Sector rotation" }, { href: "/outlook", label: "Forecast & scenarios" }, { href: "/ask", label: "Ask the data" }];
+  const active = (href: string) => (href === "/" ? path === "/" : path.startsWith(href));
   return (
-    <nav aria-label="Dashboard sections" className="mx-auto max-w-6xl overflow-x-auto px-5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-      <ul className="flex gap-6 whitespace-nowrap text-sm">
-        {links.map((l) => {
-          const active = l.href === "/" ? path === "/" : path.startsWith(l.href);
-          return (
+    <nav aria-label="Main" className="mx-auto flex max-w-6xl items-end justify-between gap-6 overflow-x-auto px-5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <div className="flex shrink-0 items-end gap-1">
+        <span className="hidden pb-3 pr-2 text-xs text-muted md:inline">View as:</span>
+        <ul className="flex gap-5 whitespace-nowrap text-sm">
+          {LENS_LINKS.map((l) => (
             <li key={l.href}>
-              <Link
-                href={l.href}
-                aria-current={active ? "page" : undefined}
-                className={`inline-block border-b-2 py-3 ${
-                  active ? "border-ca font-medium text-ink" : "border-transparent text-muted hover:text-ink"
-                }`}
-              >
+              <Link href={l.href} aria-current={active(l.href) ? "page" : undefined}
+                className={`inline-block border-b-2 py-3 ${active(l.href) ? "border-ca font-semibold text-ink" : "border-transparent text-muted hover:text-ink"}`}>
                 {l.label}
               </Link>
             </li>
-          );
-        })}
+          ))}
+        </ul>
+      </div>
+      <ul className="flex shrink-0 gap-4 whitespace-nowrap text-sm">
+        {TOOL_LINKS.map((l) => (
+          <li key={l.href}>
+            <Link href={l.href} aria-current={active(l.href) ? "page" : undefined}
+              className={`inline-block border-b-2 py-3 ${active(l.href) ? "border-us font-medium text-ink" : "border-transparent text-muted hover:text-ink"}`}>
+              {l.label}
+            </Link>
+          </li>
+        ))}
       </ul>
     </nav>
   );

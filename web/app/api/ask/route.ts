@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
 import { describeData, runQuery, validateSql } from "@/lib/server/sql";
-import { answerPrompt, systemPrompt } from "@/lib/server/prompt";
+import { AUDIENCE, answerPrompt, systemPrompt } from "@/lib/server/prompt";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 const API_URL = `${process.env.ANTHROPIC_BASE_URL ?? "https://api.anthropic.com"}/v1/messages`;
-const MODEL = process.env.ANTHROPIC_MODEL ?? "claude-haiku-4-5-20251001";
+const MODEL = process.env.ANTHROPIC_MODEL ?? "claude-haiku-5-5";
 
 // Simple per-instance rate limit: 8 questions per minute per IP
 const hits = new Map<string, number[]>();
@@ -50,7 +50,8 @@ export async function POST(req: Request) {
   const ip = req.headers.get("x-forwarded-for")?.split(",")[0].trim() ?? "local";
   if (limited(ip)) return NextResponse.json({ error: "Too many questions. Wait a minute and try again." }, { status: 429 });
 
-  const body = (await req.json().catch(() => ({}))) as { question?: unknown };
+  const body = (await req.json().catch(() => ({}))) as { question?: unknown; lens?: unknown };
+  const audience = typeof body.lens === "string" && body.lens in AUDIENCE ? AUDIENCE[body.lens] : "";
   const question = typeof body.question === "string" ? body.question.trim().slice(0, 500) : "";
   if (question.length < 3) return NextResponse.json({ error: "Type a question first." }, { status: 400 });
 
@@ -77,7 +78,7 @@ export async function POST(req: Request) {
           const { columns, rows } = await runQuery(check.sql);
           const sample = JSON.stringify(rows.slice(0, 40));
           const answer = rows.length
-            ? await claude(answerPrompt, [{ role: "user", content: `Question: ${question}\nSQL: ${check.sql}\nRows (${rows.length} total): ${sample}` }], 300)
+            ? await claude(answerPrompt + audience, [{ role: "user", content: `Question: ${question}\nSQL: ${check.sql}\nRows (${rows.length} total): ${sample}` }], 300)
             : "The query ran but returned no rows. Try a different date range or series.";
           return NextResponse.json({ answer, explanation: plan.explanation, sql: check.sql, chart: plan.chart ?? null, columns, rows });
         } catch (e) {

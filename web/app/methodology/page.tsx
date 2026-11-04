@@ -3,15 +3,15 @@ import { fmtPeriod, fmtRefreshed } from "@/lib/format";
 import { TAB_SPECS } from "@/lib/tabs";
 import type { Series } from "@/lib/types";
 
-export const metadata = { title: "Methodology | NorthStar" };
+export const metadata = { title: "Methodology | MacroIntelligence" };
 
 const FREQ = { D: "Daily", W: "Weekly", M: "Monthly", Q: "Quarterly" } as const;
 
 const SOURCES = [
   { name: "Bank of Canada Valet API", what: "Policy rate, benchmark and Real Return Bond yields, CAD/USD, CPI-trim/median/common, commodity price index (BCPI)", freq: "Daily / monthly", lag: "1–2 days" },
-  { name: "Statistics Canada (WDS vector API)", what: "CPI, Labour Force Survey (incl. wages), IPPI, retail trade, GDP, merchandise trade, M1+/M2++, prime and 5-year mortgage rates", freq: "Weekly / monthly / quarterly", lag: "3–8 weeks" },
+  { name: "Statistics Canada (WDS vector API)", what: "CPI and its components (food, shelter, energy, services, durables), new housing price index, Labour Force Survey (incl. full- and part-time jobs, wages), IPPI, retail trade, GDP, merchandise trade, M1+/M2++, prime and 5-year mortgage rates", freq: "Weekly / monthly / quarterly", lag: "3–8 weeks" },
   { name: "FRED, St. Louis Fed (official API)", what: "U.S. GDP, jobs, JOLTS, claims, CPI, PCE, breakevens, rates, credit spreads, NFCI, loan-officer survey, housing, orders, sentiment, trade, broad dollar, WTI, OECD leading indicators", freq: "Daily / monthly / quarterly", lag: "1 day to 3 months" },
-  { name: "Yahoo Finance (yfinance)", what: "Canadian iShares and U.S. Select Sector SPDR ETF prices", freq: "Daily", lag: "1 day" },
+  { name: "Yahoo Finance (yfinance)", what: "Canadian iShares and U.S. Select Sector SPDR ETF prices; gold and copper futures; TSX Composite (XIC)", freq: "Daily", lag: "1 day" },
 ];
 
 function H2({ children }: { children: React.ReactNode }) {
@@ -25,10 +25,35 @@ export default function Methodology() {
 
   return (
     <article className="max-w-3xl leading-relaxed">
-      <h1 className="font-serif text-3xl leading-tight font-semibold sm:text-4xl">How NorthStar works</h1>
+      <h1 className="font-serif text-3xl leading-tight font-semibold sm:text-4xl">How MacroIntelligence works</h1>
       <p className="mt-3 text-lg text-muted">
         Where the numbers come from, how they are transformed, what the models do, and where their limits are.
         Data last refreshed {fmtRefreshed(manifest.generated_at)} ET.
+      </p>
+
+      <H2>Questions, not vanity metrics</H2>
+      <p className="mt-3">
+        The site is organized around four lenses (household, investor, policy analyst, student) with five questions each. Every question is
+        answered by a transparent rule applied to specific series: for example, the mortgage question compares the 5-year Government of
+        Canada yield with the overnight rate, and the recession question counts flags (curve inversion or un-inversion, the Sahm rule,
+        the U.S. recession probability, leading indicators below trend and falling). The rule produces the verdict you see; the summary
+        sentence and metrics show the exact numbers behind it. The rules live in <code>web/lib/intel/</code> and run at build time on
+        the same exported data the charts use.
+      </p>
+      <p className="mt-3">
+        The business-cycle map places each economy using its OECD composite leading indicator: above or below its long-term trend (100) and
+        rising or falling over three months. Sector calls start from that cycle position (textbook sector leadership by phase) plus each
+        sector ETF&apos;s 3- and 6-month strength against its benchmark.
+      </p>
+
+      <H2>AI briefings</H2>
+      <p className="mt-3">
+        After each data refresh, a script sends the computed answers (verdicts, summaries and metrics, nothing else) to a large language
+        model (Anthropic Claude or Google Gemini, whichever key is configured) with four audience-specific instructions, as a personal
+        finance journalist, a macro strategist, a central bank analyst and an economics professor, plus one call for the executive summary
+        and risk alerts. The model is told to use only numbers present in the data. It can revise the rules-based sector calls but must
+        give a reason. Output is validated before publishing; if a call fails, the page falls back to the rules-based verdicts. AI text is
+        labelled with the model and date.
       </p>
 
       <H2>Data sources</H2>

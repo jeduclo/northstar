@@ -1,7 +1,5 @@
-import forecastsJson from "@/public/data/forecasts.json";
-import causalJson from "@/public/data/causal_effects.json";
 import type { Country, Series } from "./types";
-import { getTab } from "./data";
+import { getTab, forecasts } from "./data";
 
 export interface MacroForecast {
   name: string;
@@ -38,8 +36,6 @@ export interface Causal {
   effects: Effect[];
 }
 
-export const forecasts = forecastsJson as unknown as Forecasts;
-export const causal = causalJson as unknown as Causal;
 
 // ---- Macro radar: where today's reading sits in its own history since 2006 (0 = worst, 100 = best) ----
 
@@ -70,9 +66,11 @@ export function radarScores(): { pillar: string; CA: number | null; US: number |
 }
 
 export function outlookAnswer(): string {
-  const get = (n: string) => forecasts.macro.find((m) => m.name === n)?.forecast.at(-1);
+  const f = forecasts;
+  if (!f) return "";
+  const get = (n: string) => f.macro.find((m) => m.name === n)?.forecast.at(-1);
   const cpi = get("ca_cpi_all_items"), onr = get("overnight_rate");
   if (!cpi || !onr) return "";
-  return `Chronos-2 puts Canadian inflation at ${cpi[2].toFixed(1)}% in ${forecasts.horizon_months} months `
+  return `Chronos-2 puts Canadian inflation at ${cpi[2].toFixed(1)}% in ${f.horizon_months} months `
     + `(80% range ${cpi[1].toFixed(1)}–${cpi[3].toFixed(1)}%) and the Bank of Canada's policy rate near ${onr[2].toFixed(2)}%.`;
 }

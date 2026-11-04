@@ -1,7 +1,8 @@
 import RotationView from "@/components/rotation/RotationView";
-import { rotation, rotationAnswer } from "@/lib/rotation";
+import { rotationAnswer } from "@/lib/rotation";
+import { rotation } from "@/lib/data";
 
-export const metadata = { title: "Sector rotation | NorthStar" };
+export const metadata = { title: "Sector rotation | MacroIntelligence" };
 
 export default function RotationPage() {
   return (

@@ -1,4 +1,3 @@
-import rotationJson from "@/public/data/rotation.json";
 import type { Country } from "./types";
 
 export type Horizon = "3m" | "6m" | "12m";
@@ -22,8 +21,6 @@ export interface RotationData {
   latest_month: string;
   rows: RotRow[];
 }
-
-export const rotation = rotationJson as RotationData;
 
 export const rsKey = (h: Horizon) => `rs_${h}` as const;
 export const retKey = (h: Horizon) => `ret_${h}` as const;

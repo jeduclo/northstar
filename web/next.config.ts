@@ -7,6 +7,12 @@ const nextConfig: NextConfig = {
   outputFileTracingIncludes: {
     "/api/ask": ["./public/data/parquet/**"],
   },
+  // The indicator dashboards moved under /data when the site became question-driven
+  async redirects() {
+    return ["output", "labour", "prices", "money", "sentiment", "trade"].map((t) => ({
+      source: `/${t}`, destination: `/data/${t}`, permanent: true,
+    }));
+  },
 };
 
 export default nextConfig;

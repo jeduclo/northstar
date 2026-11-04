@@ -15,6 +15,14 @@ interface Result {
   error?: string;
 }
 
+const LENSES = [
+  { id: "general", label: "General" },
+  { id: "household", label: "Household" },
+  { id: "investor", label: "Investor" },
+  { id: "policy", label: "Policy analyst" },
+  { id: "student", label: "Student" },
+];
+
 const EXAMPLES = [
   "How has the Bank of Canada policy rate compared with the Fed funds rate since 2020?",
   "Which Canadian sector had the best 12-month return last month?",
@@ -76,18 +84,19 @@ function ResultChart({ chart, rows }: { chart: NonNullable<Result["chart"]>; row
 const cell = (v: unknown) =>
   v === null || v === undefined ? "–" : typeof v === "number" ? v.toLocaleString("en-CA", { maximumFractionDigits: 2 }) : String(v).slice(0, 40);
 
-export default function AskView() {
+export default function AskView({ initialLens }: { initialLens?: string }) {
   const [question, setQuestion] = useState("");
   const [asked, setAsked] = useState("");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<Result | null>(null);
+  const [lens, setLens] = useState(LENSES.some((x) => x.id === initialLens) ? initialLens! : "general");
 
   async function ask(q: string) {
     const text = q.trim();
     if (text.length < 3 || loading) return;
     setQuestion(text); setAsked(text); setLoading(true); setResult(null);
     try {
-      const res = await fetch("/api/ask", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ question: text }) });
+      const res = await fetch("/api/ask", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ question: text, lens }) });
       setResult((await res.json()) as Result);
     } catch {
       setResult({ error: "Couldn't reach the assistant. Check your connection and try again." });
@@ -101,7 +110,16 @@ export default function AskView() {
 
   return (
     <>
-      <form className="mt-6 flex flex-col gap-3 sm:flex-row" onSubmit={(e) => { e.preventDefault(); ask(question); }}>
+      <div className="mt-6 flex flex-wrap items-center gap-2 text-sm">
+        <span className="text-muted">Answer for:</span>
+        {LENSES.map((l) => (
+          <button key={l.id} type="button" onClick={() => setLens(l.id)} aria-pressed={lens === l.id}
+            className={`rounded-full border px-3 py-1 ${lens === l.id ? "border-ink bg-ink text-surface" : "border-line text-muted hover:text-ink"}`}>
+            {l.label}
+          </button>
+        ))}
+      </div>
+      <form className="mt-4 flex flex-col gap-3 sm:flex-row" onSubmit={(e) => { e.preventDefault(); ask(question); }}>
         <label htmlFor="q" className="sr-only">Your question</label>
         <input id="q" value={question} onChange={(e) => setQuestion(e.target.value)} maxLength={500}
           placeholder="e.g. How has Canadian inflation compared with U.S. inflation since 2021?"

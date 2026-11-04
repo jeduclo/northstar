@@ -6,7 +6,8 @@ import { useEffect, useState } from "react";
 export default function StaleNotice({ generatedAt, maxDays = 4 }: { generatedAt: string; maxDays?: number }) {
   const [days, setDays] = useState<number | null>(null);
   useEffect(() => {
-    setDays(Math.floor((Date.now() - Date.parse(generatedAt)) / 86_400_000));
+    const id = setTimeout(() => setDays(Math.floor((Date.now() - Date.parse(generatedAt)) / 86_400_000)), 0);
+    return () => clearTimeout(id);
   }, [generatedAt]);
   if (days === null || days <= maxDays) return null;
   return (

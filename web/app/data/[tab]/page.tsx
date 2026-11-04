@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ControlBar } from "@/components/Controls";
 import KpiStrip from "@/components/KpiStrip";
@@ -12,12 +13,12 @@ export function generateStaticParams() {
   return TAB_SPECS.map((t) => ({ tab: t.slug }));
 }
 
-export async function generateMetadata({ params }: PageProps<"/[tab]">) {
+export async function generateMetadata({ params }: PageProps<"/data/[tab]">) {
   const { tab } = await params;
-  return { title: `${getSpec(tab)?.label ?? "NorthStar"} | NorthStar` };
+  return { title: `${getSpec(tab)?.label ?? "Indicators"} | Indicators | MacroIntelligence` };
 }
 
-export default async function TabPage({ params }: PageProps<"/[tab]">) {
+export default async function TabPage({ params }: PageProps<"/data/[tab]">) {
   const { tab } = await params;
   const spec = getSpec(tab);
   const data = getTab(tab);
@@ -28,7 +29,8 @@ export default async function TabPage({ params }: PageProps<"/[tab]">) {
 
   return (
     <article>
-      <h1 className="max-w-3xl font-serif text-3xl leading-tight font-semibold sm:text-4xl">{spec.question}</h1>
+      <p className="text-sm text-muted"><Link href="/data" className="hover:underline">Indicators</Link> / {spec.label}</p>
+      <h1 className="mt-1 max-w-3xl font-serif text-3xl leading-tight font-semibold sm:text-4xl">{spec.question}</h1>
       <p className="mt-3 max-w-2xl text-lg text-muted">{spec.answer((n) => byName.get(n))}</p>
 
       <div className="mt-6"><ControlBar /></div>

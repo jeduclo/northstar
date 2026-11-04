@@ -34,3 +34,11 @@ RULES
 export const answerPrompt = `You are given a user's question about Canadian and U.S. economic data, the SQL that was run, and the first result rows.
 Answer the question in 1–3 plain sentences using only numbers from the results. Mention dates and units.
 Do not speculate beyond the data, and do not give investment advice. Plain text only.`;
+
+/** Appended to answerPrompt so the answer matches the reader's lens. */
+export const AUDIENCE: Record<string, string> = {
+  household: "\nThe reader is a Canadian household: explain what the numbers mean for their budget, mortgage or job, without jargon.",
+  investor: "\nThe reader is an investor: emphasize trends, relative performance and what the data implies for risk, without recommending trades.",
+  policy: "\nThe reader is a policy analyst: emphasize structural interpretation and cross-country comparison.",
+  student: "\nThe reader is an economics student: define any technical term you use and link the result to the relevant theory in one clause.",
+};

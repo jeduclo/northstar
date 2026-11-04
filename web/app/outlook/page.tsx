@@ -1,10 +1,12 @@
 import OutlookView from "@/components/outlook/OutlookView";
-import { causal, forecasts, outlookAnswer, radarScores } from "@/lib/outlook";
+import { outlookAnswer, radarScores } from "@/lib/outlook";
+import { causal, forecasts } from "@/lib/data";
 import { fmtRefreshed } from "@/lib/format";
 
-export const metadata = { title: "Forecast & scenarios | NorthStar" };
+export const metadata = { title: "Forecast & scenarios | MacroIntelligence" };
 
 export default function OutlookPage() {
+  if (!forecasts || !causal) return <p className="text-muted">Model outputs are not available yet.</p>;
   return (
     <article>
       <h1 className="max-w-3xl font-serif text-3xl leading-tight font-semibold sm:text-4xl">

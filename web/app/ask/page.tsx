@@ -1,8 +1,9 @@
 import AskView from "@/components/ask/AskView";
 
-export const metadata = { title: "Ask the data | NorthStar" };
+export const metadata = { title: "Ask the data | MacroIntelligence" };
 
-export default function AskPage() {
+export default async function AskPage({ searchParams }: PageProps<"/ask">) {
+  const { lens } = await searchParams;
   return (
     <article>
       <h1 className="max-w-3xl font-serif text-3xl leading-tight font-semibold sm:text-4xl">
@@ -12,7 +13,7 @@ export default function AskPage() {
         Ask in plain language. The assistant writes a SQL query against the dashboard&apos;s data, runs it, and shows the
         answer with the query it used.
       </p>
-      <AskView />
+      <AskView initialLens={typeof lens === "string" ? lens : undefined} />
     </article>
   );
 }

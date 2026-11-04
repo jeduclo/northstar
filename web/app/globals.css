@@ -17,6 +17,13 @@
   --band: rgba(34, 139, 84, 0.12);
   --up: #1d7a4a;
   --down: #b3261e;
+  --warn: #8a5a00;
+  /* Validated categorical chart palette (light): Canada, U.S., then aqua, amber, violet */
+  --c-ca: #c8102e;
+  --c-us: #2b59c3;
+  --c-3: #1baf7a;
+  --c-4: #eda100;
+  --c-5: #6250d6;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -36,6 +43,12 @@
     --band: rgba(74, 194, 128, 0.12);
     --up: #5fcf8f;
     --down: #f07a70;
+    --warn: #e0a03a;
+    --c-ca: #f0556b;
+    --c-us: #5b8ae8;
+    --c-3: #199e70;
+    --c-4: #c98500;
+    --c-5: #9085e9;
   }
 }
 
@@ -49,6 +62,7 @@
   --color-us: var(--us);
   --color-up: var(--up);
   --color-down: var(--down);
+  --color-warn: var(--warn);
   --font-sans: var(--font-plex), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-source-serif), Georgia, serif;
 }
@@ -73,4 +87,16 @@ body {
     transition: none !important;
     animation: none !important;
   }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.prose-intel p + p {
+  margin-top: 0.75rem;
+}
+
+[id] {
+  scroll-margin-top: 6rem;
 }
