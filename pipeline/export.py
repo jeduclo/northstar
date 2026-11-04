@@ -14,6 +14,8 @@ from pipeline.sources.common import ROOT
 OUT = ROOT / "web" / "public" / "data"
 MAX_DATA_AGE_DAYS = 120      # newest monthly observation must be this recent
 MIN_SERIES_PER_TAB = 3
+CORE_TABS = {"output", "labour", "prices", "money", "sentiment", "trade"}   # optional tabs may be thin
+MOMENTUM_EXTRAS = ("gold", "copper", "tsx_composite", "wti_crude")
 
 
 def records(df: pd.DataFrame) -> list:
@@ -70,6 +72,42 @@ def export_extras(con) -> None:
         con.execute(f"COPY (SELECT * FROM {table}) TO '{path.as_posix()}' (FORMAT parquet)")
 
 
+def export_momentum(con) -> None:
+    """Daily-price momentum (1 week, 1 month, 3 months, YTD, 12 months) for sector ETFs and key assets."""
+    parts = []
+    try:
+        parts.append(con.execute("SELECT date, market, sector, ticker, close FROM raw.markets").df())
+    except duckdb.Error:
+        pass
+    names = ", ".join(f"'{n}'" for n in MOMENTUM_EXTRAS)
+    extra = con.execute(f"""
+        SELECT date, CASE WHEN name = 'tsx_composite' THEN 'CA' ELSE 'X' END AS market,
+               name AS sector, name AS ticker, value AS close
+        FROM clean.observations WHERE name IN ({names})""").df()
+    parts.append(extra)
+    px = pd.concat(parts, ignore_index=True).dropna()
+    if px.empty:
+        return
+    px["date"] = pd.to_datetime(px["date"])
+    rows = []
+    for (market, sector, ticker), g in px.groupby(["market", "sector", "ticker"]):
+        s = g.set_index("date")["close"].sort_index()
+        end = s.index[-1]
+        last = float(s.iloc[-1])
+
+        def ret(since):
+            base = s[:since]
+            return None if base.empty else round(100 * (last / float(base.iloc[-1]) - 1), 2)
+        rows.append({"market": market, "sector": sector, "ticker": ticker,
+                     "date": end.strftime("%Y-%m-%d"), "close": round(last, 4),
+                     "r1w": ret(end - pd.Timedelta(days=7)), "r1m": ret(end - pd.DateOffset(months=1)),
+                     "r3m": ret(end - pd.DateOffset(months=3)),
+                     "rytd": ret(pd.Timestamp(year=end.year, month=1, day=1) - pd.Timedelta(days=1)),
+                     "r12m": ret(end - pd.DateOffset(years=1))})
+    as_of = max(r["date"] for r in rows)
+    write_json("momentum.json", {"as_of": as_of, "rows": rows})
+
+
 def source_status() -> dict:
     audit = ROOT / "data" / "audit_report.csv"
     if not audit.exists():
@@ -81,12 +119,12 @@ def source_status() -> dict:
 
 def validate(tabs: dict) -> list:
     problems = []
-    newest = max(pd.Timestamp(t["latest"]) for t in tabs.values())
+    newest = max(pd.Timestamp(t["latest"]) for tab, t in tabs.items() if tab in CORE_TABS)
     age = (pd.Timestamp.today() - newest).days
     if age > MAX_DATA_AGE_DAYS:
         problems.append(f"newest data is {age} days old")
     for tab, t in tabs.items():
-        if t["series"] < MIN_SERIES_PER_TAB:
+        if tab in CORE_TABS and t["series"] < MIN_SERIES_PER_TAB:
             problems.append(f"tab '{tab}' has only {t['series']} series")
     return problems
 
@@ -95,6 +133,7 @@ def main():
     con = duckdb.connect(str(DB_PATH), read_only=True)
     tabs = export_tabs(con)
     export_extras(con)
+    export_momentum(con)
     con.close()
     problems = validate(tabs)
     files = {p.relative_to(OUT).as_posix(): p.stat().st_size

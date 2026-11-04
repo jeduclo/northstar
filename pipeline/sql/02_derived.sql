@@ -154,3 +154,18 @@ s AS (   -- 3-month totals smooth out seasonality in new lending
 SELECT month, 'ca_mortgage_credit', bal FROM s WHERE bal IS NOT NULL
 UNION ALL
 SELECT month, 'ca_variable_mortgage_share', 100 * var3 / adv3 FROM s WHERE n = 3 AND var3 IS NOT NULL;
+
+-- Question-driven additions: copper/gold ratio (risk appetite), part-time share (job quality)
+INSERT INTO clean.monthly
+WITH a AS (
+    SELECT month,
+        max(value) FILTER (WHERE name = 'copper')           AS cu,
+        max(value) FILTER (WHERE name = 'gold')             AS au,
+        max(value) FILTER (WHERE name = 'ca_ft_employment') AS ft,
+        max(value) FILTER (WHERE name = 'ca_pt_employment') AS pt
+    FROM clean.monthly GROUP BY month
+)
+SELECT month, name, value FROM (
+    SELECT month, 'copper_gold_ratio' AS name, 1000 * cu / au AS value FROM a
+    UNION ALL SELECT month, 'ca_part_time_share', 100 * pt / (pt + ft) FROM a
+) WHERE value IS NOT NULL;

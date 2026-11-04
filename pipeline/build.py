@@ -60,23 +60,23 @@ def checks(con):
     print(f"Catalog series with no data: {[m[0] for m in missing] or 'none'}")
     print(f"Duplicate rows in mart.tab_series: {dupes}")
     print("\nPer tab (series, first, latest):")
-    print(con.sql("""
+    print(con.execute("""
         SELECT tab, count(DISTINCT name) AS series, min(date) AS first, max(date) AS latest
         FROM mart.tab_series GROUP BY tab ORDER BY tab
-    """))
+    """).df().to_string(index=False))
     print("Latest readings:")
-    con.sql("""
+    print(con.execute("""
         SELECT tab, name, arg_max(date, date) AS date, round(arg_max(value, date), 2) AS value,
                any_value(display_unit) AS unit
         FROM mart.tab_series GROUP BY tab, name ORDER BY tab, name
-    """).show(max_rows=60)
-    print(con.sql("SELECT * FROM mart.recessions ORDER BY start_date"))
-    print(con.sql("""
+    """).df().to_string(index=False))
+    print(con.execute("SELECT * FROM mart.recessions ORDER BY start_date").df().to_string(index=False))
+    print(con.execute("""
         SELECT market, sector, round(rs_12m, 1) AS rs_12m_vs_benchmark
         FROM mart.rotation WHERE NOT is_partial_month
           AND month = (SELECT max(month) FROM mart.rotation WHERE NOT is_partial_month)
           AND sector <> 'Benchmark' ORDER BY market, rs_12m DESC
-    """))
+    """).df().to_string(index=False))
     return not missing and dupes == 0
 
 

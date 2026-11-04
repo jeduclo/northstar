@@ -121,3 +121,32 @@ ca_variable_mortgage_share,CA,money,M,%,none,Variable-rate share of new mortgage
 us_re_loans,US,money,M,bn USD,yoy,Real estate loans (banks),,
 us_consumer_loans,US,money,M,bn USD,yoy,Consumer loans (banks),,
 us_ci_loans,US,money,M,bn USD,yoy,Commercial & industrial loans (banks),,
+ca_cpi_food_stores,CA,prices,M,index,yoy,CPI: food purchased from stores,,1
+ca_cpi_shelter,CA,prices,M,index,yoy,CPI: shelter,,1
+ca_cpi_energy,CA,prices,M,index,yoy,CPI: energy,,1
+ca_cpi_services,CA,prices,M,index,yoy,CPI: services,,1
+ca_cpi_goods,CA,prices,M,index,yoy,CPI: goods,,1
+ca_cpi_durables,CA,prices,M,index,yoy,CPI: durable goods,,1
+ca_cpi_vehicles,CA,prices,M,index,yoy,CPI: purchase of passenger vehicles,,1
+ca_cpi_mortgage_interest,CA,prices,M,index,yoy,CPI: mortgage interest cost,,1
+ca_nhpi,CA,prices,M,index,yoy,New housing price index (house and land),,1
+us_cpi_shelter,US,prices,M,index,yoy,CPI: shelter,,1
+us_cpi_energy,US,prices,M,index,yoy,CPI: energy,,1
+us_cpi_services_ex_energy,US,prices,M,index,yoy,CPI: services less energy,,1
+us_cpi_core_goods,US,prices,M,index,yoy,CPI: core goods,,1
+ca_ft_employment,CA,labour,M,thousands,yoy,Full-time employment (LFS),,1
+ca_pt_employment,CA,labour,M,thousands,yoy,Part-time employment (LFS),,1
+ca_part_time_share,CA,labour,M,%,none,Part-time share of employment,,1
+us_hy_spread,US,money,D,pp,none,High-yield corporate bond spread (ICE BofA),,1
+us_yield_5yr,US,money,M,%,none,Treasury 5-year yield,,1
+us_tbill_3m,US,money,M,%,none,Treasury 3-month bill,,1
+ca_tbill_3m,CA,money,W,%,none,GoC 3-month treasury bill,,1
+gold,US,markets,D,USD/oz,none,Gold (front-month futures),,1
+copper,US,markets,D,USD/lb,none,Copper (front-month futures),,1
+copper_gold_ratio,US,markets,M,ratio x1000,none,Copper-to-gold price ratio,,1
+gold_yoy,US,markets,D,USD/oz,yoy,Gold,gold,1
+copper_yoy,US,markets,D,USD/lb,yoy,Copper,copper,1
+tsx_composite,CA,markets,D,index,none,S&P/TSX Composite (XIC ETF),,1
+tsx_composite_yoy,CA,markets,D,index,yoy,S&P/TSX Composite (XIC ETF),tsx_composite,1
+ca_gdp_pc_level,CA,output,Q,chained 2017 CAD,none,Real GDP per person aged 15+ (level),ca_gdp_per_capita,1
+us_gdp_pc_level,US,output,Q,chained USD,none,Real GDP per person aged 16+ (level),us_gdp_per_capita,1

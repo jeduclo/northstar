@@ -12,6 +12,10 @@ US = {"SPY": "Benchmark", "XLK": "Tech", "XLE": "Energy", "XLF": "Financials",
       "XLV": "HealthCare", "XLI": "Industrials", "XLU": "Utilities",
       "XLP": "Staples", "XLB": "Materials"}
 
+# Cross-asset prices used by the investor questions (risk regime, inflation hedges).
+# Stored as ordinary observations (date, name, value) so they flow through the catalog.
+MACRO = {"GC=F": "gold", "HG=F": "copper", "XIC.TO": "tsx_composite"}
+
 # Sectors present in both markets -> used for cross-border rotation in Tab 7
 PAIRED_SECTORS = sorted(set(CANADA.values()) & set(US.values()))
 
@@ -41,4 +45,24 @@ def run():
             report.append(failed("yfinance", f"sectors_{market}", e))
     if frames:
         save(pd.concat(frames, ignore_index=True), "markets")
+    report += run_macro()
+    return report
+
+
+def run_macro():
+    report = []
+    try:
+        px = yf.download(list(MACRO), start=MARKET_START, progress=False, timeout=60,
+                         auto_adjust=True)["Close"]
+        df = px.reset_index().melt(id_vars="Date", var_name="series_id", value_name="value").dropna()
+        df = df.rename(columns={"Date": "date"})
+        df["name"] = df["series_id"].map(MACRO)
+        df = df[["date", "series_id", "name", "value"]]
+        save(df, "markets_macro")
+        for name, g in df.groupby("name"):
+            report.append(summarize(g, "yfinance", name, 7, note=g.series_id.iloc[0]))
+        for name in set(MACRO.values()) - set(df["name"]):
+            report.append(failed("yfinance", name, "no data returned"))
+    except Exception as e:
+        report += [failed("yfinance", n, e) for n in MACRO.values()]
     return report

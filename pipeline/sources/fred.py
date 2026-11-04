@@ -57,6 +57,14 @@ FRED_SERIES = {  # id: (name, max acceptable lag in days)
     "DCOILWTICO": ("wti_crude", 10),
     "DEXCAUS": ("usdcad_fred", 10),  # CAD per USD; backfills BoC FX before 2017
     "DTWEXBGS": ("us_broad_dollar", 14),
+    # Added for the question-driven site (optional in the catalog)
+    "BAMLH0A0HYM2": ("us_hy_spread", 10),
+    "GS5": ("us_yield_5yr", 75),
+    "TB3MS": ("us_tbill_3m", 75),
+    "CUSR0000SAH1": ("us_cpi_shelter", 75),
+    "CPIENGSL": ("us_cpi_energy", 75),
+    "CUSR0000SASLE": ("us_cpi_services_ex_energy", 75),
+    "CUSR0000SACL1E": ("us_cpi_core_goods", 75),
 }
 
 

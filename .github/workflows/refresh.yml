@@ -45,6 +45,23 @@ jobs:
         timeout-minutes: 5
         run: python -m pipeline.export
 
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: AI briefings (falls back to rules if no key or on error)
+        working-directory: web
+        timeout-minutes: 8
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          BRIEFING_MODEL: ${{ vars.BRIEFING_MODEL }}
+        run: |
+          npm ci --no-audit --no-fund
+          npm run briefings
+
       - name: Commit refreshed data (push triggers Vercel deploy)
         run: |
           git config user.name "northstar-bot"

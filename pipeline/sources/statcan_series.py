@@ -59,33 +59,65 @@ BY_MEMBERS = {  # name: (product id, member names, frequency, max lag days, tabl
     "ca_core_cpi_sa":      (18100006, ["Canada", "All-items excluding food and energy"], "M", 75, "18-10-0006", 1),
     "ca_mfg_new_orders":   (16100047, ["Canada", "New orders", "Seasonally adjusted", "Manufacturing"], "M", 100, "16-10-0047", 1),
 }
+# Added for the question-driven site. Strict: every member name must match a dimension,
+# otherwise the series fails (and, being optional in the catalog, is simply hidden).
+STRICT = {
+    "ca_cpi_food_stores":       (18100004, ["Canada", "Food purchased from stores"], "M", 75, "18-10-0004", 1),
+    "ca_cpi_shelter":           (18100004, ["Canada", "Shelter"], "M", 75, "18-10-0004", 1),
+    "ca_cpi_energy":            (18100004, ["Canada", "Energy"], "M", 75, "18-10-0004", 1),
+    "ca_cpi_services":          (18100004, ["Canada", "Services"], "M", 75, "18-10-0004", 1),
+    "ca_cpi_goods":             (18100004, ["Canada", "Goods"], "M", 75, "18-10-0004", 1),
+    "ca_cpi_durables":          (18100004, ["Canada", "Durable goods"], "M", 75, "18-10-0004", 1),
+    "ca_cpi_vehicles":          (18100004, ["Canada", "Purchase of passenger vehicles"], "M", 75, "18-10-0004", 1),
+    "ca_cpi_mortgage_interest": (18100004, ["Canada", "Mortgage interest cost"], "M", 75, "18-10-0004", 1),
+    "ca_nhpi":                  (18100205, ["Canada", "Total (house and land)"], "M", 100, "18-10-0205", 1),
+    "ca_ft_employment":         (14100287, ["Canada", "Full-time employment", "Seasonally adjusted"], "M", 75, "14-10-0287", 1),
+    "ca_pt_employment":         (14100287, ["Canada", "Part-time employment", "Seasonally adjusted"], "M", 75, "14-10-0287", 1),
+}
 WDS = "https://www150.statcan.gc.ca/t1/wds/rest"
+_META: dict = {}
+
+
+def _metadata(pid: int) -> dict:
+    if pid not in _META:
+        meta = HTTP.post(f"{WDS}/getCubeMetadata", json=[{"productId": pid}], timeout=90).json()[0]
+        if meta.get("status") != "SUCCESS":
+            raise ValueError(f"metadata status {meta.get('status')}")
+        _META[pid] = meta
+    return _META[pid]
 
 
 def _pick(members: list, wanted: list):
+    """Return (member, wanted name it matched) or (None, None)."""
     names = [(m, m["memberNameEn"].strip().lower()) for m in members]
-    for w in (w.lower() for w in wanted):
+    for w_orig in wanted:
+        w = w_orig.lower()
         exact = [m for m, n in names if n == w]
         if exact:
-            return exact[0]
+            return exact[0], w_orig
         prefix = sorted((m for m, n in names if n.startswith(w)), key=lambda m: len(m["memberNameEn"]))
         if prefix:
-            return prefix[0]
+            return prefix[0], w_orig
         contains = [m for m, n in names if w in n]
         if len(contains) == 1:
-            return contains[0]
-    return None
+            return contains[0], w_orig
+    return None, None
 
 
-def fetch_by_members(name: str, pid: int, wanted: list, freq: str, divisor: float):
-    meta = HTTP.post(f"{WDS}/getCubeMetadata", json=[{"productId": pid}], timeout=60).json()[0]
-    if meta.get("status") != "SUCCESS":
-        raise ValueError(f"metadata status {meta.get('status')}")
-    ids, path = [], []
+def fetch_by_members(name: str, pid: int, wanted: list, freq: str, divisor: float, strict: bool = False):
+    meta = _metadata(pid)
+    ids, path, matched = [], [], set()
     for dim in sorted(meta["object"]["dimension"], key=lambda d: d["dimensionPositionId"]):
-        m = _pick(dim["member"], wanted) or dim["member"][0]
+        m, w = _pick(dim["member"], wanted)
+        if w is not None:
+            matched.add(w)
+        m = m or dim["member"][0]
         ids.append(str(m["memberId"]))
         path.append(f'{dim["dimensionNameEn"]}={m["memberNameEn"]}')
+    if strict:
+        unmatched = [w for w in wanted if w not in matched]
+        if unmatched:
+            raise ValueError(f"members not found: {unmatched}")
     coord = ".".join(ids + ["0"] * (10 - len(ids)))
     r = HTTP.post(f"{WDS}/getDataFromCubePidCoordAndLatestNPeriods",
                   json=[{"productId": pid, "coordinate": coord, "latestN": LATEST_N[freq]}], timeout=60).json()[0]
@@ -103,9 +135,10 @@ def fetch_by_members(name: str, pid: int, wanted: list, freq: str, divisor: floa
 
 def run():
     report, frames = [], []
-    for name, (pid, wanted, freq, lag, table, divisor) in BY_MEMBERS.items():
+    specs = [(n, v, False) for n, v in BY_MEMBERS.items()] + [(n, v, True) for n, v in STRICT.items()]
+    for name, (pid, wanted, freq, lag, table, divisor), strict in specs:
         try:
-            df, path = fetch_by_members(name, pid, wanted, freq, divisor)
+            df, path = fetch_by_members(name, pid, wanted, freq, divisor, strict)
             frames.append(df)
             report.append(summarize(df, "statcan_series", name, lag,
                                     note=f"{table} {df.series_id.iloc[0]}: {path}"))

@@ -19,6 +19,7 @@ BOC_SERIES = {
     "M.ENER": "bcpi_energy",
     "M.BCNE": "bcpi_ex_energy",
     "CES_C1_SHORT_TERM": "ca_consumer_infl_exp",   # CSCE, quarterly
+    "V39065": "ca_tbill_3m",                       # 3-month treasury bill (weekly), short end of the curve
     # Chartered-bank lending (OSFI A4 return), month-end, $ millions
     "V122667724": "ca_mtg_adv_insured",      # funds advanced, insured mortgages
     "V122667730": "ca_mtg_adv_uninsured",    # funds advanced, uninsured mortgages
@@ -29,7 +30,7 @@ BOC_SERIES = {
     "V122667758": "ca_consumer_credit",
     "V122667770": "ca_business_credit",
 }
-LAGS = {"ca_consumer_infl_exp": 220}         # quarterly survey, published ~3.5 months after quarter start
+LAGS = {"ca_consumer_infl_exp": 220, "ca_tbill_3m": 14}         # quarterly survey, published ~3.5 months after quarter start
 LAGS.update({n: 100 for n in BOC_SERIES.values() if n.startswith(("ca_mtg_", "ca_consumer_credit", "ca_business_credit"))})
 MONTHLY = {"cpi_trim", "cpi_median", "cpi_common", "bcpi_total", "bcpi_energy", "bcpi_ex_energy"}
 
