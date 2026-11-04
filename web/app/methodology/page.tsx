@@ -37,8 +37,8 @@ export default function Methodology() {
         answered by a transparent rule applied to specific series: for example, the mortgage question compares the 5-year Government of
         Canada yield with the overnight rate, and the recession question counts flags (curve inversion or un-inversion, the Sahm rule,
         the U.S. recession probability, leading indicators below trend and falling). The rule produces the verdict you see; the summary
-        sentence and metrics show the exact numbers behind it. The rules live in <code>web/lib/intel/</code> and run at build time on
-        the same exported data the charts use.
+        sentence and metrics show the exact numbers behind it. The rules run on the same data the charts use, so an answer and its chart
+        never disagree.
       </p>
       <p className="mt-3">
         The business-cycle map places each economy using its OECD composite leading indicator: above or below its long-term trend (100) and
@@ -48,7 +48,7 @@ export default function Methodology() {
 
       <H2>AI briefings</H2>
       <p className="mt-3">
-        After each data refresh, a script sends the computed answers (verdicts, summaries and metrics, nothing else) to a large language
+        After each data refresh, the computed answers (verdicts, summaries and metrics, nothing else) are sent to a large language
         model (Anthropic Claude or Google Gemini, whichever key is configured) with four audience-specific instructions, as a personal
         finance journalist, a macro strategist, a central bank analyst and an economics professor, plus one call for the executive summary
         and risk alerts. The model is told to use only numbers present in the data. It can revise the rules-based sector calls but must

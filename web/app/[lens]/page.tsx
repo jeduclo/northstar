@@ -33,60 +33,64 @@ export default async function LensPage({ params }: PageProps<"/[lens]">) {
   const hasBrief = !!brief?.headline;
 
   return (
-    <article className="space-y-8">
-      <header>
-        <p className="text-sm font-medium uppercase tracking-wider text-muted">{l.label} lens · {l.focus}</p>
-        <h1 className="mt-2 max-w-4xl font-serif text-4xl leading-tight font-semibold">“{l.question}”</h1>
-        <nav aria-label="Questions on this page" className="mt-5 flex flex-wrap gap-2">
-          {answers.map((a, i) => (
-            <a key={a.id} href={`#${a.id}`} className="rounded-full border border-line bg-surface px-3 py-1 text-sm text-muted hover:border-ink hover:text-ink">
-              {i + 1}. {a.short}
+    <article className="space-y-14">
+      <header className="max-w-4xl">
+        <p className="text-[15px] text-muted">{l.label} lens: {l.focus.toLowerCase()}</p>
+        <h1 className="mt-3 font-serif text-[40px] leading-[1.1] font-semibold tracking-[-0.02em] sm:text-[48px]">“{l.question}”</h1>
+        <nav aria-label="Questions on this page" className="mt-7 flex flex-wrap gap-2">
+          {answers.map((a) => (
+            <a key={a.id} href={`#${a.id}`} className="rounded-full border border-line px-3.5 py-1.5 text-sm text-muted transition-colors hover:border-accent hover:text-accent">
+              {a.short}
             </a>
           ))}
         </nav>
       </header>
 
-      <section className="rounded-xl border border-line bg-surface p-5 sm:p-7">
-        <div className="flex flex-wrap items-baseline justify-between gap-2">
-          <h2 className="font-serif text-2xl font-semibold">{hasBrief ? BRIEF_TITLE[l.id] : "At a glance"}</h2>
+      <section className="rounded-xl bg-panel p-6 sm:p-8">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <h2 className="font-serif text-[26px] font-semibold">{hasBrief ? BRIEF_TITLE[l.id] : "At a glance"}</h2>
           {briefings && hasBrief && <AiBadge by={briefings.generated_by} at={briefings.generated_at} />}
         </div>
         {hasBrief ? (
           <>
-            <p className="mt-3 max-w-4xl text-lg font-medium leading-snug">{brief!.headline}</p>
-            <ul className="mt-3 max-w-4xl list-disc space-y-1.5 pl-5 text-[15px] leading-relaxed">
-              {brief!.bullets.map((b) => <li key={b}>{b}</li>)}
+            <p className="mt-4 max-w-[70ch] font-serif text-[21px] leading-snug">{brief!.headline}</p>
+            <ul className="mt-4 max-w-[75ch] space-y-2 text-[15.5px] leading-relaxed">
+              {brief!.bullets.map((b) => (
+                <li key={b} className="flex gap-3"><span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden />{b}</li>
+              ))}
             </ul>
           </>
         ) : (
-          <div className="mt-4"><VerdictList answers={answers} lens={l.id} /></div>
+          <div className="mt-5"><VerdictList answers={answers} lens={l.id} /></div>
         )}
       </section>
 
-      {answers.map((a, i) => <QuestionCard key={a.id} a={a} index={i} note={brief?.notes?.[a.id]} />)}
+      {answers.map((a) => <QuestionCard key={a.id} a={a} note={brief?.notes?.[a.id]} />)}
 
       {l.id === "investor" && (
         <>
-          <section className="rounded-xl border border-line bg-surface p-5 sm:p-7">
-            <h2 className="font-serif text-2xl font-semibold">Sector calls</h2>
-            <p className="mb-5 mt-2 max-w-3xl text-sm text-muted">
-              Cycle position plus 3- and 6-month relative strength (percentage points vs benchmark). General information, not a recommendation.
+          <section className="border-t border-line pt-10">
+            <h2 className="font-serif text-[28px] font-semibold">Sector positioning</h2>
+            <p className="mb-6 mt-2 max-w-[70ch] text-[15px] text-muted">
+              Cycle position plus 3- and 6-month relative strength (percentage points against the benchmark). General information, not a recommendation.
             </p>
             <SectorTable calls={briefings?.sectors?.length ? briefings.sectors : baselineSectors()} />
           </section>
-          <section className="rounded-xl border border-line bg-surface p-5 sm:p-7">
-            <h2 className="font-serif text-2xl font-semibold">Risk alerts</h2>
-            <div className="mt-3"><AlertList alerts={briefings?.alerts?.length ? briefings.alerts : riskAlerts()} /></div>
+          <section className="border-t border-line pt-10">
+            <h2 className="font-serif text-[28px] font-semibold">Risk monitor</h2>
+            <div className="mt-6 max-w-3xl"><AlertList alerts={briefings?.alerts?.length ? briefings.alerts : riskAlerts()} /></div>
           </section>
         </>
       )}
 
-      <footer className="flex flex-wrap gap-x-6 gap-y-2 border-t border-line pt-5 text-sm">
-        <span className="text-muted">Other lenses:</span>
+      <footer className="flex flex-wrap items-center gap-x-6 gap-y-3 rounded-xl border border-line p-6">
+        <span className="text-muted">See the economy through another lens:</span>
         {LENSES.filter((x) => x.id !== l.id).map((x) => (
-          <Link key={x.id} href={`/${x.id}`} className="underline hover:text-ca">{x.label}</Link>
+          <Link key={x.id} href={`/${x.id}`} className="font-medium text-accent hover:underline">{x.label}</Link>
         ))}
-        <Link href={`/ask?lens=${l.id}`} className="ml-auto underline hover:text-ca">Ask your own question →</Link>
+        <Link href={`/ask?lens=${l.id}`} className="ml-auto rounded-full bg-accent px-4 py-2 text-sm font-medium text-surface hover:opacity-90">
+          Ask your own question
+        </Link>
       </footer>
     </article>
   );

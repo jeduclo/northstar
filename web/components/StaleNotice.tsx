@@ -11,8 +11,8 @@ export default function StaleNotice({ generatedAt, maxDays = 4 }: { generatedAt:
   }, [generatedAt]);
   if (days === null || days <= maxDays) return null;
   return (
-    <p role="status" className="bg-down/10 px-5 py-2 text-center text-sm text-down">
-      Data was last refreshed {days} days ago. The daily update may have failed; figures can be out of date.
+    <p role="status" className="border-b border-warn/20 bg-warn/5 px-5 py-2 text-center text-[13px] text-warn">
+      Figures were last updated {days} days ago; a refresh is pending.
     </p>
   );
 }

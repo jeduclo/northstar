@@ -2,59 +2,69 @@
 
 /* NorthStar tokens: cool slate canvas, Canada red vs U.S. blue */
 :root {
-  --canvas: #eef2f6;
+  --canvas: #ffffff;
   --surface: #ffffff;
-  --ink: #14202e;
-  --muted: #5b6b7c;
-  --line: #d5dde6;
-  --ca: #c8102e;
-  --ca-2: #e0707f;
-  --ca-3: #7a0a1c;
-  --us: #2b59c3;
-  --us-2: #7fa1e0;
-  --us-3: #1b3674;
-  --shade: rgba(91, 107, 124, 0.14);
-  --band: rgba(34, 139, 84, 0.12);
+  --panel: #f3f6f8;
+  --ink: #1b2733;
+  --muted: #5d6b78;
+  --line: #e2e7ec;
+  --accent: #0d5c63;
+  --accent-soft: #e3f0f0;
+  /* Country identity (old dashboards use these) */
+  --ca: #c46a17;
+  --ca-2: #e0a066;
+  --ca-3: #8a4a0e;
+  --us: #2f5fb3;
+  --us-2: #7f9fdc;
+  --us-3: #1d3d7a;
+  --shade: rgba(93, 107, 120, 0.12);
+  --band: rgba(19, 163, 134, 0.1);
   --up: #1d7a4a;
   --down: #b3261e;
   --warn: #8a5a00;
-  /* Validated categorical chart palette (light): Canada, U.S., then aqua, amber, violet */
-  --c-ca: #c8102e;
-  --c-us: #2b59c3;
-  --c-3: #1baf7a;
-  --c-4: #eda100;
-  --c-5: #6250d6;
+  /* Validated categorical chart palette (light): Canada, U.S., teal, violet, olive */
+  --c-ca: #c46a17;
+  --c-us: #2f5fb3;
+  --c-3: #13a386;
+  --c-4: #7766c9;
+  --c-5: #8a8f1a;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --canvas: #0f1720;
-    --surface: #16212c;
+    --canvas: #0f151b;
+    --surface: #141c24;
+    --panel: #1a2430;
     --ink: #e6edf3;
-    --muted: #93a4b5;
-    --line: #2a3746;
-    --ca: #f0556b;
-    --ca-2: #f5a0ab;
-    --ca-3: #c23a50;
-    --us: #6e97f0;
-    --us-2: #a9c1f5;
-    --us-3: #4a73d1;
-    --shade: rgba(147, 164, 181, 0.14);
-    --band: rgba(74, 194, 128, 0.12);
+    --muted: #97a6b4;
+    --line: #26323e;
+    --accent: #5cc0bb;
+    --accent-soft: #15302f;
+    --ca: #c97a2a;
+    --ca-2: #e3a96b;
+    --ca-3: #a35f1c;
+    --us: #5c84d8;
+    --us-2: #a3bbee;
+    --us-3: #3f66bd;
+    --shade: rgba(151, 166, 180, 0.12);
+    --band: rgba(27, 154, 127, 0.14);
     --up: #5fcf8f;
     --down: #f07a70;
     --warn: #e0a03a;
-    --c-ca: #f0556b;
-    --c-us: #5b8ae8;
-    --c-3: #199e70;
-    --c-4: #c98500;
-    --c-5: #9085e9;
+    --c-ca: #c97a2a;
+    --c-us: #5c84d8;
+    --c-3: #1b9a7f;
+    --c-4: #8b7ddd;
+    --c-5: #8e9426;
   }
 }
 
 @theme inline {
   --color-canvas: var(--canvas);
   --color-surface: var(--surface);
+  --color-panel: var(--panel);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
   --color-ink: var(--ink);
   --color-muted: var(--muted);
   --color-line: var(--line);
@@ -78,7 +88,7 @@ body {
 }
 
 :focus-visible {
-  outline: 2px solid var(--us);
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 

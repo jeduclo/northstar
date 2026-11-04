@@ -26,7 +26,7 @@ export default function Indicators() {
           return (
             <li key={spec.slug}>
               <Link href={`/data/${spec.slug}`} className="group grid gap-1 py-5 sm:grid-cols-[14rem_1fr] sm:gap-6">
-                <span className="font-medium group-hover:text-ca">{spec.label}</span>
+                <span className="font-medium group-hover:text-accent">{spec.label}</span>
                 <span>
                   <span className="block font-serif text-lg">{spec.question}</span>
                   <span className="mt-1 block text-sm text-muted">{answer}</span>
@@ -38,7 +38,7 @@ export default function Indicators() {
         })}
         <li>
           <Link href="/rotation" className="group grid gap-1 py-5 sm:grid-cols-[14rem_1fr] sm:gap-6">
-            <span className="font-medium group-hover:text-ca">Sector rotation</span>
+            <span className="font-medium group-hover:text-accent">Sector rotation</span>
             <span>
               <span className="block font-serif text-lg">How is capital rotating across sectors in Canada and the U.S.?</span>
               <span className="mt-1 block text-sm text-muted">{rotationAnswer(rotation)}</span>
@@ -47,7 +47,7 @@ export default function Indicators() {
         </li>
         <li>
           <Link href="/outlook" className="group grid gap-1 py-5 sm:grid-cols-[14rem_1fr] sm:gap-6">
-            <span className="font-medium group-hover:text-ca">Forecast &amp; scenarios</span>
+            <span className="font-medium group-hover:text-accent">Forecast &amp; scenarios</span>
             <span>
               <span className="block font-serif text-lg">What comes next, and how would a rate shock ripple through sectors?</span>
               <span className="mt-1 block text-sm text-muted">{outlookAnswer()}</span>

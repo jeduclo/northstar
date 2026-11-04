@@ -3,10 +3,10 @@ import type { Answer, Call, LensId, RiskAlert, SectorCall, Tone } from "@/lib/in
 import QChart from "./QChart";
 
 const TONE: Record<Tone, { cls: string; icon: string; sr: string }> = {
-  good: { cls: "border-up/40 bg-up/10 text-up", icon: "▲", sr: "Favourable" },
-  bad: { cls: "border-down/40 bg-down/10 text-down", icon: "▼", sr: "Unfavourable" },
-  caution: { cls: "border-warn/40 bg-warn/10 text-warn", icon: "◆", sr: "Caution" },
-  neutral: { cls: "border-line bg-canvas text-muted", icon: "●", sr: "Neutral" },
+  good: { cls: "border-up/30 bg-up/[0.07] text-up", icon: "▲", sr: "Favourable" },
+  bad: { cls: "border-down/30 bg-down/[0.07] text-down", icon: "▼", sr: "Unfavourable" },
+  caution: { cls: "border-warn/30 bg-warn/[0.07] text-warn", icon: "◆", sr: "Caution" },
+  neutral: { cls: "border-line bg-panel text-muted", icon: "●", sr: "Neutral" },
 };
 
 export function VerdictChip({ label, tone, size = "md" }: { label: string; tone: Tone; size?: "sm" | "md" }) {
@@ -25,15 +25,16 @@ export function AiBadge({ by, at }: { by: string; at?: string }) {
   const name = by.startsWith("claude") ? "Claude" : by.startsWith("gemini") ? "Gemini" : by;
   const date = at ? new Date(at).toLocaleDateString("en-CA", { month: "short", day: "numeric", timeZone: "America/Toronto" }) : "";
   return (
-    <span className="inline-flex items-center gap-1.5 rounded border border-line px-2 py-0.5 text-[11px] uppercase tracking-wide text-muted">
-      {ai ? `AI analysis · ${name}` : "Automated summary"}{date && ` · ${date}`}
+    <span className="inline-flex items-center gap-1.5 rounded-full bg-accent-soft px-2.5 py-0.5 text-xs text-accent">
+      <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden><path d="M5 0 L6 4 L10 5 L6 6 L5 10 L4 6 L0 5 L4 4 Z" fill="currentColor" /></svg>
+      {ai ? `Written by ${name}` : "Automated summary"}{date && `, ${date}`}
     </span>
   );
 }
 
 const METRIC_COLS: Record<number, string> = {
-  1: "grid-cols-1 max-w-xs",
-  2: "grid-cols-2 max-w-lg",
+  1: "grid-cols-1",
+  2: "grid-cols-2 max-w-xl",
   3: "grid-cols-2 sm:grid-cols-3 max-w-3xl",
   4: "grid-cols-2 lg:grid-cols-4",
   5: "grid-cols-2 sm:grid-cols-3 lg:grid-cols-5",
@@ -46,67 +47,68 @@ const NOTE_TITLE: Record<LensId, string> = {
   student: "Tutor's note",
 };
 
-export function QuestionCard({ a, note, index }: { a: Answer; note?: string; index: number }) {
-  const asOf = a.asOf ? new Date(`${a.asOf}T00:00:00Z`).toLocaleDateString("en-CA", { month: "short", year: "numeric", timeZone: "UTC" }) : "";
+export function QuestionCard({ a, note }: { a: Answer; note?: string; index?: number }) {
+  const asOf = a.asOf ? new Date(`${a.asOf}T00:00:00Z`).toLocaleDateString("en-CA", { month: "long", year: "numeric", timeZone: "UTC" }) : "";
   return (
-    <section id={a.id} className="rounded-xl border border-line bg-surface p-5 sm:p-7">
-      <p className="text-xs font-medium uppercase tracking-wider text-muted">Question {index + 1}</p>
-      <h2 className="mt-1 font-serif text-2xl leading-snug font-semibold">{a.question}</h2>
-      <div className="mt-3"><VerdictChip label={a.verdict.label} tone={a.verdict.tone} /></div>
-      <p className="mt-4 max-w-3xl text-[15px] leading-relaxed">{a.summary}</p>
+    <section id={a.id} className="border-t border-line pt-10">
+      <div className="grid gap-x-12 gap-y-4 lg:grid-cols-[minmax(0,1fr)_19rem]">
+        <div className="min-w-0">
+          <h2 className="font-serif text-[28px] leading-tight font-semibold tracking-[-0.01em]">{a.question}</h2>
+          <div className="mt-4"><VerdictChip label={a.verdict.label} tone={a.verdict.tone} /></div>
+          <p className="mt-4 max-w-[68ch] text-[16px] leading-relaxed text-ink/90">{a.summary}</p>
+        </div>
+        {note && (
+          <aside className="self-start rounded-lg bg-accent-soft/70 p-5 text-[14.5px] leading-relaxed">
+            <h3 className="flex items-center gap-2 text-sm font-semibold text-accent">{NOTE_TITLE[a.lens]}</h3>
+            <p className="mt-2">{note}</p>
+          </aside>
+        )}
+      </div>
 
       {a.metrics.length > 0 && (
-        <dl className={`mt-5 grid gap-px overflow-hidden rounded-lg border border-line bg-line ${METRIC_COLS[Math.min(a.metrics.length, 5)]}`}>
+        <dl className={`mt-7 grid gap-x-8 gap-y-5 ${METRIC_COLS[Math.min(a.metrics.length, 5)]}`}>
           {a.metrics.slice(0, 5).map((m) => (
-            <div key={m.label} className="bg-surface p-3">
-              <dt className="text-xs text-muted">{m.label}</dt>
-              <dd className="mt-0.5 text-lg font-semibold tabular-nums">{m.value}</dd>
+            <div key={m.label} className="border-l-2 border-line pl-4">
+              <dt className="text-[13px] text-muted">{m.label}</dt>
+              <dd className="mt-1 text-[22px] font-semibold tabular-nums tracking-tight">{m.value}</dd>
               {m.note && <dd className="text-xs text-muted">{m.note}</dd>}
             </div>
           ))}
         </dl>
       )}
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-[1fr_20rem]">
-        <figure className="min-w-0">
-          <figcaption className="mb-2 text-sm font-medium">{a.chartTitle}</figcaption>
-          {a.chart ? <QChart chart={a.chart} /> : <p className="py-10 text-center text-sm text-muted">Chart available after the next data refresh.</p>}
+      <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_19rem]">
+        <figure className="min-w-0 rounded-xl border border-line bg-surface p-5">
+          <figcaption className="mb-3 text-[15px] font-medium">{a.chartTitle}</figcaption>
+          {a.chart ? <QChart chart={a.chart} /> : <p className="py-10 text-center text-sm text-muted">The chart appears after the next data refresh.</p>}
         </figure>
-        <aside className="space-y-4 text-sm leading-relaxed">
-          {note && (
-            <div className="rounded-lg border-l-2 border-us bg-canvas p-4">
-              <h3 className="text-xs font-semibold uppercase tracking-wide text-muted">{NOTE_TITLE[a.lens]}</h3>
-              <p className="mt-1.5">{note}</p>
-            </div>
-          )}
-          <div>
-            <h3 className="text-xs font-semibold uppercase tracking-wide text-muted">{a.lens === "student" ? "The theory" : "How to read this"}</h3>
-            <p className="mt-1.5 text-muted">{a.explain}</p>
-          </div>
-        </aside>
+        <div className="text-[14.5px] leading-relaxed">
+          <h3 className="text-sm font-semibold">{a.lens === "student" ? "The theory" : "How to read this"}</h3>
+          <p className="mt-2 text-muted">{a.explain}</p>
+        </div>
       </div>
 
-      <p className="mt-5 border-t border-line pt-3 text-xs text-muted">
-        Sources: {a.sources.join("; ")}.{asOf && ` Latest data: ${asOf}.`}
-        {a.pending?.length ? ` More detail (${a.pending.join(", ")}) appears once the data pipeline delivers it.` : ""}
+      <p className="mt-6 text-xs text-muted">
+        Source: {a.sources.join("; ")}.{asOf && ` Latest data: ${asOf}.`}
+        {a.pending?.length ? " Some detail is still being added to the data feed." : ""}
       </p>
     </section>
   );
 }
 
 const SEV: Record<RiskAlert["severity"], { cls: string; label: string }> = {
-  high: { cls: "bg-down text-surface", label: "High" },
-  medium: { cls: "bg-warn text-surface", label: "Medium" },
-  low: { cls: "bg-line text-ink", label: "Low" },
+  high: { cls: "bg-down/10 text-down", label: "High" },
+  medium: { cls: "bg-warn/10 text-warn", label: "Medium" },
+  low: { cls: "bg-panel text-muted", label: "Low" },
 };
 
 export function AlertList({ alerts }: { alerts: RiskAlert[] }) {
   if (!alerts.length) return <p className="text-sm text-muted">No risk flags are raised right now.</p>;
   return (
-    <ul className="divide-y divide-line">
+    <ul className="divide-y divide-line [&>li:first-child]:pt-0">
       {alerts.map((a) => (
-        <li key={a.id} className="flex gap-3 py-3">
-          <span className={`mt-0.5 h-fit shrink-0 rounded px-1.5 py-0.5 text-[11px] font-semibold uppercase ${SEV[a.severity].cls}`}>{SEV[a.severity].label}</span>
+        <li key={a.id} className="flex gap-4 py-4">
+          <span className={`mt-0.5 h-fit w-16 shrink-0 rounded-full py-0.5 text-center text-xs font-medium ${SEV[a.severity].cls}`}>{SEV[a.severity].label}</span>
           <div>
             <p className="font-medium">{a.title}</p>
             <p className="mt-0.5 text-sm text-muted">{a.detail}</p>
@@ -127,7 +129,7 @@ export function SectorTable({ calls }: { calls: SectorCall[] }) {
     <div className="grid gap-6 lg:grid-cols-2">
       {markets.map((m) => (
         <div key={m} className="overflow-x-auto">
-          <h3 className="mb-2 text-sm font-semibold">{m === "US" ? "United States (vs S&P 500)" : "Canada (vs TSX 60)"}</h3>
+          <h3 className="mb-3 flex items-center gap-2 font-semibold"><span className={`h-2 w-2 rounded-full ${m === "US" ? "bg-us" : "bg-ca"}`} aria-hidden />{m === "US" ? "United States, vs the S&P 500" : "Canada, vs the TSX 60"}</h3>
           <table className="w-full text-left text-sm">
             <thead>
               <tr className="border-b border-line text-xs text-muted">
@@ -159,11 +161,13 @@ export function SectorTable({ calls }: { calls: SectorCall[] }) {
 
 export function VerdictList({ answers, lens }: { answers: Answer[]; lens: LensId }) {
   return (
-    <ul className="space-y-2.5">
+    <ul className="divide-y divide-line">
       {answers.map((a) => (
-        <li key={a.id} className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-          <Link href={`/${lens}#${a.id}`} className="text-sm hover:underline">{a.question}</Link>
-          <VerdictChip size="sm" label={a.verdict.label} tone={a.verdict.tone} />
+        <li key={a.id}>
+          <Link href={`/${lens}#${a.id}`} className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1.5 py-3 hover:text-accent">
+            <span className="text-[15.5px]">{a.question}</span>
+            <VerdictChip size="sm" label={a.verdict.label} tone={a.verdict.tone} />
+          </Link>
         </li>
       ))}
     </ul>
