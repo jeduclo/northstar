@@ -47,6 +47,21 @@ def fetch_all() -> dict:
     return out
 
 
+def fetch_vector_fallback(vid: int, freq: str) -> list:
+    """Per-series route for when the batch method is unavailable (StatCan blocks some methods
+    from midnight to 8:30 ET while it loads the day's releases): vector -> table + coordinate -> data."""
+    info = HTTP.post(f"{WDS}/getSeriesInfoFromVector", json=[{"vectorId": vid}], timeout=60).json()[0]
+    if info.get("status") != "SUCCESS":
+        raise ValueError(f"series info status {info.get('status')}")
+    obj = info["object"]
+    r = HTTP.post(f"{WDS}/getDataFromCubePidCoordAndLatestNPeriods", timeout=60,
+                  json=[{"productId": obj["productId"], "coordinate": obj["coordinate"], "latestN": LATEST_N[freq]}]).json()[0]
+    pts = (r.get("object") or {}).get("vectorDataPoint") or []
+    if r.get("status") != "SUCCESS" or not pts:
+        raise ValueError(f"no data via table {obj['productId']} coordinate {obj['coordinate']}")
+    return pts
+
+
 # Series located by table + member names instead of a hard-coded vector ID.
 # Each dimension takes the member matching one of the names (exact, then prefix, then
 # unique substring); dimensions with no match take their first member (usually the total).
@@ -148,10 +163,10 @@ def run():
         data = fetch_all()
     except Exception as e:
         data = {}
-        report.append(failed("statcan_series", "vector batch", e))
-    for name, (vid, _, lag, table) in VECTORS.items():
+        print(f"  vector batch unavailable ({str(e)[:80]}); fetching series one by one", flush=True)
+    for name, (vid, freq, lag, table) in VECTORS.items():
         try:
-            points = data.get(vid)
+            points = data.get(vid) or fetch_vector_fallback(vid, freq)
             if not points:
                 raise ValueError(f"no data returned for v{vid}")
             df = pd.DataFrame({
