@@ -38,10 +38,10 @@ cad_usd,CA,input,D,USD per CAD,none,BoC CAD/USD (from 2017),,
 usdcad_fred,CA,input,D,CAD per USD,none,FRED USD/CAD (backfill),,
 cad_usd_combined,CA,trade,D,USD per CAD,none,CAD/USD exchange rate,,
 wti_crude,US,trade,D,USD/bbl,none,WTI crude oil,,
-ca_exports,CA,trade,M,mn CAD,yoy,Merchandise exports,,
-ca_imports,CA,trade,M,mn CAD,yoy,Merchandise imports,,
-ca_exports_to_us,CA,trade,M,mn CAD,yoy,Merchandise exports to U.S.,,
-ca_trade_balance,CA,trade,M,mn CAD,none,Merchandise trade balance,,
+ca_exports,CA,trade,M,mn CAD,yoy,Merchandise exports,,1
+ca_imports,CA,trade,M,mn CAD,yoy,Merchandise imports,,1
+ca_exports_to_us,CA,trade,M,mn CAD,yoy,Merchandise exports to U.S.,,1
+ca_trade_balance,CA,trade,M,mn CAD,none,Merchandise trade balance,,1
 us_trade_balance,US,trade,M,mn USD,none,Goods & services trade balance,,
 ca_gdp_yoy,CA,output,Q,chained 2017 CAD SAAR,yoy,Real GDP (expenditure),ca_gdp_quarterly,
 us_gdp_yoy,US,output,Q,bn chained USD SAAR,yoy,Real GDP,us_gdp,
@@ -52,7 +52,7 @@ ca_cli_yoy,CA,sentiment,M,index,yoy,OECD leading indicator,canada_oecd_cli,
 us_cli_yoy,US,sentiment,M,index,yoy,OECD leading indicator,us_oecd_cli,
 cad_oil_corr_12m,CA,trade,D,corr,none,CAD–oil correlation (12 months),,
 cad_oil_corr_36m,CA,trade,D,corr,none,CAD–oil correlation (36 months),,
-ca_us_export_share,CA,trade,M,%,none,Share of exports going to the U.S.,,
+ca_us_export_share,CA,trade,M,%,none,Share of exports going to the U.S.,,1
 ca_pop_15plus,CA,input,M,thousands,none,LFS population aged 15+,,1
 us_pop_16plus,US,input,M,thousands,none,Civilian noninstitutional population 16+,,
 us_unemployed_level,US,input,M,thousands,none,Unemployed persons,,
@@ -96,7 +96,7 @@ bcpi_energy,CA,trade,M,index,yoy,BCPI energy,,
 bcpi_ex_energy,CA,trade,M,index,yoy,BCPI excluding energy,,
 ca_us_2y_spread,CA,trade,M,pp,none,Canada minus U.S. 2-year yield,,
 us_broad_dollar,US,trade,D,index,none,Broad trade-weighted U.S. dollar,,
-ca_exports_non_us,CA,trade,M,mn CAD,yoy,Merchandise exports to non-U.S. markets,,
+ca_exports_non_us,CA,trade,M,mn CAD,yoy,Merchandise exports to non-U.S. markets,,1
 ca_unemployed_level,CA,input,M,thousands,none,Unemployed persons (LFS),,1
 ca_job_vacancies,CA,input,M,thousands,none,Job vacancies (JVWS),,1
 ca_capacity_util,CA,output,Q,%,none,Industrial capacity utilization,,1

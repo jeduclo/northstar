@@ -50,15 +50,17 @@ def fetch_all() -> dict:
 def fetch_vector_fallback(vid: int, freq: str) -> list:
     """Per-series route for when the batch method is unavailable (StatCan blocks some methods
     from midnight to 8:30 ET while it loads the day's releases): vector -> table + coordinate -> data."""
-    info = HTTP.post(f"{WDS}/getSeriesInfoFromVector", json=[{"vectorId": vid}], timeout=60).json()[0]
+    info = HTTP.post(f"{WDS}/getSeriesInfoFromVector", json=[{"vectorId": vid}], timeout=60).json()
+    info = info[0] if isinstance(info, list) and info else {"status": f"unexpected response {str(info)[:80]}"}
     if info.get("status") != "SUCCESS":
         raise ValueError(f"series info status {info.get('status')}")
     obj = info["object"]
     r = HTTP.post(f"{WDS}/getDataFromCubePidCoordAndLatestNPeriods", timeout=60,
-                  json=[{"productId": obj["productId"], "coordinate": obj["coordinate"], "latestN": LATEST_N[freq]}]).json()[0]
+                  json=[{"productId": obj["productId"], "coordinate": obj["coordinate"], "latestN": LATEST_N[freq]}]).json()
+    r = r[0] if isinstance(r, list) and r else {"status": f"unexpected response {str(r)[:80]}"}
     pts = (r.get("object") or {}).get("vectorDataPoint") or []
     if r.get("status") != "SUCCESS" or not pts:
-        raise ValueError(f"no data via table {obj['productId']} coordinate {obj['coordinate']}")
+        raise ValueError(f"table {obj['productId']} unavailable ({r.get('status')}); StatCan may be loading a release")
     return pts
 
 
