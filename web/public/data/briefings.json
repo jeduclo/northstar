@@ -1,7 +1,7 @@
 {
- "generated_at": "2026-11-05T20:56:32.317Z",
+ "generated_at": "2026-11-06T20:15:11.032Z",
  "generated_by": "rules",
- "data_as_of": "2026-11-05T20:56:22+00:00",
+ "data_as_of": "2026-11-06T20:14:59+00:00",
  "executive_summary": "Leading indicators place Canada in the mid cycle and the U.S. in the mid cycle. Inflation: supply-driven (energy). Headline CPI is 3.1% (Sep 2026). Policy: wide divergence between the Bank of Canada and the Fed. Recession risk: low near-term risk. Top risk: energy price shock.",
  "personas": {
   "household": {
@@ -55,6 +55,16 @@
    "momentum3m": -3.3,
    "momentum6m": 5.4,
    "rationale": "Cycle-neutral in the mid cycle; mixed relative momentum."
+  },
+  {
+   "market": "CA",
+   "sector": "Materials",
+   "ticker": "XMA.TO",
+   "call": "Underweight",
+   "score": -1,
+   "momentum3m": -1.5,
+   "momentum6m": -17,
+   "rationale": "Cycle-neutral in the mid cycle; trailing its benchmark over 3 and 6 months."
   },
   {
    "market": "CA",
@@ -168,13 +178,13 @@
    "id": "stagflation",
    "severity": "high",
    "title": "Stagflation signal",
-   "detail": "Copper fell 5.7% over the past month while the U.S. 10-year yield rose +0.14 pts: weaker growth with sticky inflation expectations."
+   "detail": "Copper fell 5.1% over the past month while the U.S. 10-year yield rose +0.14 pts: weaker growth with sticky inflation expectations."
   },
   {
    "id": "real-wages",
    "severity": "medium",
    "title": "Real wages falling in both countries",
-   "detail": "Pay is trailing prices: real wage growth is −0.8% in Canada and −0.7% in the U.S. (Sep 2026), a drag on consumer spending."
+   "detail": "Pay is trailing prices: real wage growth is −0.8% in Canada and −0.6% in the U.S. (Sep 2026), a drag on consumer spending."
   },
   {
    "id": "inflation",
@@ -186,7 +196,7 @@
    "id": "credit",
    "severity": "medium",
    "title": "Credit spreads widening",
-   "detail": "Corporate spreads are up +0.68 pts in three months to 3.38 points: lenders are pricing more default risk."
+   "detail": "Corporate spreads are up +0.71 pts in three months to 3.41 points: lenders are pricing more default risk."
   },
   {
    "id": "sentiment",
