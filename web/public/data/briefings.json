@@ -1,7 +1,7 @@
 {
- "generated_at": "2026-11-06T20:15:11.032Z",
+ "generated_at": "2026-11-09T23:17:17.250Z",
  "generated_by": "rules",
- "data_as_of": "2026-11-06T20:14:59+00:00",
+ "data_as_of": "2026-11-09T23:17:07+00:00",
  "executive_summary": "Leading indicators place Canada in the mid cycle and the U.S. in the mid cycle. Inflation: supply-driven (energy). Headline CPI is 3.1% (Sep 2026). Policy: wide divergence between the Bank of Canada and the Fed. Recession risk: low near-term risk. Top risk: energy price shock.",
  "personas": {
   "household": {
@@ -55,16 +55,6 @@
    "momentum3m": -3.3,
    "momentum6m": 5.4,
    "rationale": "Cycle-neutral in the mid cycle; mixed relative momentum."
-  },
-  {
-   "market": "CA",
-   "sector": "Materials",
-   "ticker": "XMA.TO",
-   "call": "Underweight",
-   "score": -1,
-   "momentum3m": -1.5,
-   "momentum6m": -17,
-   "rationale": "Cycle-neutral in the mid cycle; trailing its benchmark over 3 and 6 months."
   },
   {
    "market": "CA",
@@ -173,12 +163,6 @@
    "severity": "high",
    "title": "Energy price shock",
    "detail": "Oil is +66% from a year ago (Nov 2026), feeding headline inflation and squeezing energy importers while lifting Canada's terms of trade."
-  },
-  {
-   "id": "stagflation",
-   "severity": "high",
-   "title": "Stagflation signal",
-   "detail": "Copper fell 5.1% over the past month while the U.S. 10-year yield rose +0.14 pts: weaker growth with sticky inflation expectations."
   },
   {
    "id": "real-wages",
