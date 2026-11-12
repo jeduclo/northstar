@@ -1,7 +1,7 @@
 {
- "generated_at": "2026-11-11T21:03:29.765Z",
+ "generated_at": "2026-11-12T21:18:19.155Z",
  "generated_by": "rules",
- "data_as_of": "2026-11-11T21:03:15+00:00",
+ "data_as_of": "2026-11-12T21:18:07+00:00",
  "executive_summary": "Leading indicators place Canada in the mid cycle and the U.S. in the mid cycle. Inflation: supply-driven (energy). Headline CPI is 3.1% (Sep 2026). Policy: wide divergence between the Bank of Canada and the Fed. Recession risk: low near-term risk. Top risk: energy price shock.",
  "personas": {
   "household": {
@@ -178,7 +178,7 @@
    "id": "stagflation",
    "severity": "high",
    "title": "Stagflation signal",
-   "detail": "Copper fell 5.6% over the past month while the U.S. 10-year yield rose +0.14 pts: weaker growth with sticky inflation expectations."
+   "detail": "Copper fell 7.6% over the past month while the U.S. 10-year yield rose +0.14 pts: weaker growth with sticky inflation expectations."
   },
   {
    "id": "real-wages",
@@ -196,7 +196,7 @@
    "id": "credit",
    "severity": "medium",
    "title": "Credit spreads widening",
-   "detail": "Corporate spreads are up +0.70 pts in three months to 3.40 points: lenders are pricing more default risk."
+   "detail": "Corporate spreads are up +0.68 pts in three months to 3.38 points: lenders are pricing more default risk."
   },
   {
    "id": "sentiment",
