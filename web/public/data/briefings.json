@@ -1,7 +1,7 @@
 {
- "generated_at": "2026-11-12T21:18:19.155Z",
+ "generated_at": "2026-11-13T20:46:00.487Z",
  "generated_by": "rules",
- "data_as_of": "2026-11-12T21:18:07+00:00",
+ "data_as_of": "2026-11-13T20:45:45+00:00",
  "executive_summary": "Leading indicators place Canada in the mid cycle and the U.S. in the mid cycle. Inflation: supply-driven (energy). Headline CPI is 3.1% (Sep 2026). Policy: wide divergence between the Bank of Canada and the Fed. Recession risk: low near-term risk. Top risk: energy price shock.",
  "personas": {
   "household": {
@@ -172,13 +172,13 @@
    "id": "oil-shock",
    "severity": "high",
    "title": "Energy price shock",
-   "detail": "Oil is +66% from a year ago (Nov 2026), feeding headline inflation and squeezing energy importers while lifting Canada's terms of trade."
+   "detail": "Oil is +56% from a year ago (Nov 2026), feeding headline inflation and squeezing energy importers while lifting Canada's terms of trade."
   },
   {
    "id": "stagflation",
    "severity": "high",
    "title": "Stagflation signal",
-   "detail": "Copper fell 7.6% over the past month while the U.S. 10-year yield rose +0.14 pts: weaker growth with sticky inflation expectations."
+   "detail": "Copper fell 9.0% over the past month while the U.S. 10-year yield rose +0.14 pts: weaker growth with sticky inflation expectations."
   },
   {
    "id": "real-wages",
@@ -196,7 +196,7 @@
    "id": "credit",
    "severity": "medium",
    "title": "Credit spreads widening",
-   "detail": "Corporate spreads are up +0.68 pts in three months to 3.38 points: lenders are pricing more default risk."
+   "detail": "Corporate spreads are up +0.66 pts in three months to 3.36 points: lenders are pricing more default risk."
   },
   {
    "id": "sentiment",
