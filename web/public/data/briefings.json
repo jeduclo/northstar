@@ -1,8 +1,8 @@
 {
- "generated_at": "2026-11-13T20:46:00.487Z",
+ "generated_at": "2026-11-16T23:12:02.444Z",
  "generated_by": "rules",
- "data_as_of": "2026-11-13T20:45:45+00:00",
- "executive_summary": "Leading indicators place Canada in the mid cycle and the U.S. in the mid cycle. Inflation: supply-driven (energy). Headline CPI is 3.1% (Sep 2026). Policy: wide divergence between the Bank of Canada and the Fed. Recession risk: low near-term risk. Top risk: energy price shock.",
+ "data_as_of": "2026-11-16T23:11:52+00:00",
+ "executive_summary": "Leading indicators place Canada in the mid cycle and the U.S. in the mid cycle. Inflation: supply-driven (energy). Headline CPI is 3.1% (Oct 2026). Policy: wide divergence between the Bank of Canada and the Fed. Recession risk: low near-term risk. Top risk: energy price shock.",
  "personas": {
   "household": {
    "headline": "",
@@ -178,13 +178,13 @@
    "id": "stagflation",
    "severity": "high",
    "title": "Stagflation signal",
-   "detail": "Copper fell 9.0% over the past month while the U.S. 10-year yield rose +0.14 pts: weaker growth with sticky inflation expectations."
+   "detail": "Copper fell 8.2% over the past month while the U.S. 10-year yield rose +0.14 pts: weaker growth with sticky inflation expectations."
   },
   {
    "id": "real-wages",
    "severity": "medium",
    "title": "Real wages falling in both countries",
-   "detail": "Pay is trailing prices: real wage growth is −0.8% in Canada and −0.6% in the U.S. (Sep 2026), a drag on consumer spending."
+   "detail": "Pay is trailing prices: real wage growth is −0.8% in Canada and −0.6% in the U.S. (Oct 2026), a drag on consumer spending."
   },
   {
    "id": "inflation",
@@ -196,7 +196,7 @@
    "id": "credit",
    "severity": "medium",
    "title": "Credit spreads widening",
-   "detail": "Corporate spreads are up +0.66 pts in three months to 3.36 points: lenders are pricing more default risk."
+   "detail": "Corporate spreads are up +0.64 pts in three months to 3.34 points: lenders are pricing more default risk."
   },
   {
    "id": "sentiment",
