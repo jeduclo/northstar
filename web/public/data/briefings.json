@@ -1,7 +1,7 @@
 {
- "generated_at": "2026-11-25T22:56:50.218Z",
+ "generated_at": "2026-11-26T22:48:07.535Z",
  "generated_by": "rules",
- "data_as_of": "2026-11-25T22:56:37+00:00",
+ "data_as_of": "2026-11-26T22:47:51+00:00",
  "executive_summary": "Leading indicators place Canada in the mid cycle and the U.S. in the mid cycle. Inflation: supply-driven (energy). Headline CPI is 3.1% (Oct 2026). Policy: wide divergence between the Bank of Canada and the Fed. Recession risk: low near-term risk. Top risk: energy price shock.",
  "personas": {
   "household": {
@@ -178,7 +178,7 @@
    "id": "stagflation",
    "severity": "high",
    "title": "Stagflation signal",
-   "detail": "Copper fell 15.4% over the past month while the U.S. 10-year yield rose +0.14 pts: weaker growth with sticky inflation expectations."
+   "detail": "Copper fell 16.5% over the past month while the U.S. 10-year yield rose +0.14 pts: weaker growth with sticky inflation expectations."
   },
   {
    "id": "real-wages",
